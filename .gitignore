@@ -1,0 +1,11 @@
+.qmake.stash
+*.sln
+.vs
+bin/*
+lib/*
+*.vcxproj*
+*_resource.rc
+src/ZFqt/debug
+src/ZFqt/release
+src/ZFqt_locale/debug
+src/ZFqt_locale/release
