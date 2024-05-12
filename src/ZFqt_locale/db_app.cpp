@@ -15,7 +15,7 @@ DBApp::~DBApp()
 	this->Close();
 }
 
-int32_t	DBApp::Open(const QString& qstrDBName, const QString& qstrPassword)
+int32_t	DBApp::Open(const QString& qstrDBHome, const QString& qstrDBName, const QString& qstrPassword)
 {
 	int32_t	nErrno = ZFqt::E_Errno_ERR_GENERAL;
 
@@ -25,7 +25,7 @@ int32_t	DBApp::Open(const QString& qstrDBName, const QString& qstrPassword)
 
 	for (int32_t iOnce = 0; iOnce < 1; ++iOnce)
 	{
-		nErrno = DBAppBase::Open(ZFqt::App::Instance()->GetAppDataHome(), qstrDBName, qstrPassword);
+		nErrno = DBAppBase::Open(qstrDBHome, qstrDBName, qstrPassword);
 		if (nErrno != ZFqt::E_Errno_SUCCESS)
 		{
 			break;

@@ -20,7 +20,9 @@ namespace ZFqt
 		void	SetVendorDomain(const QString& qstrVendorDomain)		{ this->m_qstrVendorDomain = qstrVendorDomain; }
 		void	SetVendorEmail(const QString& qstrVendorEmail)			{ this->m_qstrVendorEmail = qstrVendorEmail; }
 		void	SetCustomSetting(const QString& qstrSettingName, const QString& qstrSettingValue);
+		void	SetAppGroupName(const QString& qstrAppGroupName)		{ this->m_qstrAppGroupName = qstrAppGroupName; }
 
+		const QString&	GetAppGroupName() const		{ return this->m_qstrAppGroupName; }
 		const QString&	GetAppName() const			{ return this->m_qstrAppName; }
 		const QString&	GetAppDisplayName() const	{ return this->m_qstrAppDisplayName; }
 		const QString&	GetAppVersion() const		{ return this->m_qstrAppVersion; }
@@ -31,9 +33,11 @@ namespace ZFqt
 
 		QString	GetAppPath() const;
 		QString	GetAppHome() const;
+		QString	GetAppGroupDataHome() const;
 		QString	GetAppDataHome() const;
 
 	private:
+		QString	m_qstrAppGroupName;
 		QString	m_qstrAppName;
 		QString	m_qstrAppDisplayName;
 		QString	m_qstrAppVersion;

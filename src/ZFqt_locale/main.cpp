@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
 
 	QApplication app(argc, argv);
 
+	ZFqt::App::Instance()->SetAppGroupName("ZFqt");
 	ZFqt::App::Instance()->SetAppName("ZFqt_locale");
 	ZFqt::App::Instance()->SetAppVersion("1.0");
 	ZFqt::App::Instance()->SetAppDisplayName("ZFqt locale");

@@ -57,6 +57,17 @@ QString	ZFqt::App::GetAppHome() const
 	return qstrBinDir;
 }
 
+QString	ZFqt::App::GetAppGroupDataHome() const
+{
+	QString	qstrAppGroupName(this->m_qstrAppGroupName);
+	if (qstrAppGroupName.isEmpty())
+	{
+		qstrAppGroupName	=	"ZFqt";
+	}
+
+	return QDir::toNativeSeparators(QDir::homePath() + QDir::separator() + "." + qstrAppGroupName);
+}
+
 QString	ZFqt::App::GetAppDataHome() const
 {
 	QString	qstrAppName(this->m_qstrAppName);

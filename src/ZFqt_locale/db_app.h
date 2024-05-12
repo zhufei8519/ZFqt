@@ -10,7 +10,7 @@ public:
 	DBApp();
 	virtual ~DBApp();
 
-	virtual int32_t	Open(const QString& qstrDBName, const QString& qstrPassword = "");
+	virtual int32_t	Open(const QString& qstrDBHome, const QString& qstrDBName, const QString& qstrPassword = "");
 	virtual int32_t	Close();
 
 public:

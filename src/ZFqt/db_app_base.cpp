@@ -15,18 +15,18 @@ ZFqt::DBAppBase::~DBAppBase()
 
 int32_t	ZFqt::DBAppBase::Open(const QString& qstrDBHome, const QString& qstrDBName, const QString& qstrPassword)
 {
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Trace,
 		"ZFqt::DBAppBase::Open(\"%s\") available SQL drivers:\n",
 		qstrDBName.toStdString().c_str());
 	QStringList	listDrivers = QSqlDatabase::drivers();
 	QStringList::ConstIterator	iter;
 	for (iter = listDrivers.begin(); iter != listDrivers.end(); ++iter)
 	{
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Trace,
 			"\t%s\n",
 			iter->toStdString().c_str());
 	}
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Trace,
 		"\n");
 
 	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,

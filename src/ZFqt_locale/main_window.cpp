@@ -54,7 +54,7 @@ MainWindow::~MainWindow()
 void	MainWindow::slot_OnCreateDialog()
 {
 	ZFqt::LogMgr::Instance()->Init(
-		ZFqt::App::Instance()->GetAppDataHome(),
+		ZFqt::App::Instance()->GetAppGroupDataHome(),
 		ZFqt::App::Instance()->GetAppName() + ".log",
 #ifdef QT_NO_DEBUG
 		"info"
@@ -65,7 +65,7 @@ void	MainWindow::slot_OnCreateDialog()
 
 #ifndef QT_NO_DEBUG
 	// Module log test
-	ZFqt::LogMgr::Instance()->SetModuleLogFile("Module_test", ZFqt::App::Instance()->GetAppDataHome(), "Module_test.log");
+	ZFqt::LogMgr::Instance()->SetModuleLogFile("Module_test", ZFqt::App::Instance()->GetAppGroupDataHome(), "Module_test.log");
 	ZFqt::LogMgr::Instance()->Log("Module_test", ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 		"LogLevel [%s]\n",
 		ZFqt::GetLogLevelString(ZFqt::E_LogLevel_Error));
@@ -83,8 +83,8 @@ void	MainWindow::slot_OnCreateDialog()
 		ZFqt::GetLogLevelString(ZFqt::E_LogLevel_Trace));
 #endif //end !QT_NO_DEBUG
 
-	DBApp::Instance()->Open(ZFqt::App::Instance()->GetAppName(), ZFqt::App::Instance()->GetVendorEmail());
-	ZFqt::Locale::Instance()->Open(ZFqt::App::Instance()->GetAppDataHome(), "locale", ZFqt::App::Instance()->GetVendorEmail());
+	DBApp::Instance()->Open(ZFqt::App::Instance()->GetAppGroupDataHome(), ZFqt::App::Instance()->GetAppName(), ZFqt::App::Instance()->GetVendorEmail());
+	ZFqt::Locale::Instance()->Open(ZFqt::App::Instance()->GetAppGroupDataHome(), ZFqt::App::Instance()->GetAppName(), ZFqt::App::Instance()->GetVendorEmail());
 
 	std::map< QString, QString >	mapSupportedLocales;
 	std::map< QString, QString >::const_iterator	iterMapSupportedLocales;
@@ -208,7 +208,7 @@ void	MainWindow::OnMenuExit()
 			//GenerateLocaleTemplate
 void	MainWindow::OnMenuGenerateLocaleTemplate()
 {
-	ZFqt::Locale::Instance()->GenerateLocaleTemplate(ZFqt::App::Instance()->GetAppDataHome() + QDir::separator() + "locale.en_US.xml");
+	ZFqt::Locale::Instance()->GenerateLocaleTemplate(ZFqt::App::Instance()->GetAppGroupDataHome() + QDir::separator() + "locale.en_US.xml");
 }
 
 			//ImportLocale
@@ -218,7 +218,7 @@ void	MainWindow::OnMenuImportLocale()
 
 	QString	filePathLocale =
 		QFileDialog::getOpenFileName(NULL, ZFqt_T("Import Locale"),
-			ZFqt::App::Instance()->GetAppDataHome(),
+			ZFqt::App::Instance()->GetAppGroupDataHome(),
 			("XML files(*.xml)"));
 	if (!filePathLocale.isEmpty())
 	{
