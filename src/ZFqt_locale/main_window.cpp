@@ -83,8 +83,8 @@ void	MainWindow::slot_OnCreateDialog()
 		ZFqt::GetLogLevelString(ZFqt::E_LogLevel_Trace));
 #endif //end !QT_NO_DEBUG
 
-	DBApp::Instance()->Open(ZFqt::App::Instance()->GetAppGroupDataHome(), ZFqt::App::Instance()->GetAppName(), ZFqt::App::Instance()->GetVendorEmail());
-	ZFqt::Locale::Instance()->Open(ZFqt::App::Instance()->GetAppGroupDataHome(), ZFqt::App::Instance()->GetAppName(), ZFqt::App::Instance()->GetVendorEmail());
+	DBApp::Instance()->Open(ZFqt::App::Instance()->GetAppGroupDataHome(), ZFqt::App::Instance()->GetAppGroupName(), ZFqt::App::Instance()->GetVendorEmail());
+	ZFqt::Locale::Instance()->Open(ZFqt::App::Instance()->GetAppGroupDataHome(), ZFqt::App::Instance()->GetAppGroupName() + "_locale", ZFqt::App::Instance()->GetVendorEmail());
 
 	std::map< QString, QString >	mapSupportedLocales;
 	std::map< QString, QString >::const_iterator	iterMapSupportedLocales;
