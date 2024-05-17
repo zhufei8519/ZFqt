@@ -17,6 +17,8 @@ namespace ZFqt
 		virtual int32_t	Open(const QString& qstrDBHome, const QString& qstrDBName, const QString& qstrPassword);
 		virtual int32_t	Close();
 
+		bool	IsLocaleInitialized(const QString& qstrLocaleName);
+
 		QString	GetLocaleString(const QString& qstr_en_US);
 
 		void	GetSupportedLocales(std::map< QString, QString >& mapSupportedLocales);

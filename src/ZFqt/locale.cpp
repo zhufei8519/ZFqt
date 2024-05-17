@@ -1,6 +1,9 @@
 ﻿
 #include "ZFqt/locale.h"
+#include "ZFqt/app.h"
 #include "ZFqt/threaded/log.h"
+
+#include <QDir>
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -53,7 +56,7 @@ int32_t	ZFqt::Locale::Open(const QString& qstrDBHome, const QString& qstrDBName,
 			break;
 		}
 
-		// open locale table, create if not exists
+		// get configured CUR_LOCALE, initialize if not exists
 		this->m_qstrCurLocale	=	this->GetCfgItem("CUR_LOCALE", "");
 		if (this->m_qstrCurLocale.isEmpty())
 		{
@@ -64,10 +67,13 @@ int32_t	ZFqt::Locale::Open(const QString& qstrDBHome, const QString& qstrDBName,
 				this->m_qstrDBName.toStdString().c_str(),
 				this->m_qstrCurLocale.toStdString().c_str());
 		}
-		nErrno	=	this->OpenTableLocale(this->m_qstrCurLocale);
-		if (nErrno != ZFqt::E_Errno_SUCCESS)
+		if (!this->IsLocaleInitialized(this->m_qstrCurLocale))
 		{
-			break;
+			this->m_qstrCurLocale	=	this->ImportLocale(ZFqt::App::Instance()->GetAppHome() + QDir::separator() + "data" + QDir::separator() + "locale" + QDir::separator() + "locale." + this->m_qstrCurLocale + ".xml");
+			if (this->m_qstrCurLocale.isEmpty())
+			{
+				this->m_qstrCurLocale	=	"en_US";
+			}
 		}
 
 		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
@@ -105,6 +111,45 @@ int32_t	ZFqt::Locale::Close()
 	this->m_qstrCurLocale =	"en_US";
 
 	return ZFqt::E_Errno_SUCCESS;
+}
+
+bool	ZFqt::Locale::IsLocaleInitialized(const QString& qstrLocaleName)
+{
+	// check parameters
+	if (qstrLocaleName.isEmpty())
+	{
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+			"ZFqt::Locale::IsLocaleInitialized(\"%s\") failed: locale name is EMPTY !!!\n",
+			qstrLocaleName.toStdString().c_str());
+
+		return false;
+	}
+
+	// check locale is supported
+	std::map< QString, QString >	mapSupportedLocales;
+	this->GetSupportedLocales(mapSupportedLocales);
+	if (mapSupportedLocales.find(qstrLocaleName) == mapSupportedLocales.end())
+	{
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
+			"ZFqt::Locale::IsLocaleInitialized(\"%s\") : locale NOT supported !!!\n",
+			qstrLocaleName.toStdString().c_str());
+
+		return false;
+	}
+
+	// check locale table exists or not
+	QString	qstrLocaleTableName	=	QString("tbl_") + qstrLocaleName;
+	if (!this->IsTableExists(qstrLocaleTableName))
+	{
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
+			"ZFqt::Locale::IsLocaleInitialized(\"%s\") : locale table[\"%s\"] NOT EXIST !!!\n",
+			qstrLocaleName.toStdString().c_str(),
+			qstrLocaleTableName.toStdString().c_str());
+
+		return false;
+	}
+
+	return true;
 }
 
 QString	ZFqt::Locale::GetLocaleString(const QString& qstr_en_US)
