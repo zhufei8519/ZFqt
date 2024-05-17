@@ -22,10 +22,11 @@ namespace ZFqt
 		QString	GetLocaleString(const QString& qstr_en_US);
 
 		void	GetSupportedLocales(std::map< QString, QString >& mapSupportedLocales);
+		QString	GetLocaleValue(const QString& qstrLocaleName);
 		QString	GetCurLocale();
-		void	SetCurLocale(const QString& qstrCurLocale);
+		bool	SetCurLocale(const QString& qstrCurLocale);
 
-		void	GenerateLocaleTemplate(const QString& qstrFilePathLocale);
+		bool	GenerateLocaleTemplate(const QString& qstrFilePathLocale);
 		QString	ImportLocale(const QString& qstrFilePathLocale);
 
 		static	QString	GetSystemLocale();

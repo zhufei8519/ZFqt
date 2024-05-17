@@ -220,22 +220,40 @@ void	ZFqt::Locale::GetSupportedLocales(std::map< QString, QString >& mapSupporte
 	}
 }
 
+QString	ZFqt::Locale::GetLocaleValue(const QString& qstrLocaleName)
+{
+	QString	qstrLocaleValue;
+
+	QString		qstrStmt =
+		QString("SELECT value FROM tbl_locale WHERE name='") + qstrLocaleName + "'";
+	QSqlQuery	query(QSqlDatabase::database(this->m_qstrDBName));
+	if (query.exec(qstrStmt))
+	{
+		if (query.next())
+		{
+			qstrLocaleValue	=	query.value(0).toString();
+		}
+	}
+
+	return qstrLocaleValue;
+}
+
 QString	ZFqt::Locale::GetCurLocale()
 {
 	return this->m_qstrCurLocale;
 }
 
-void	ZFqt::Locale::SetCurLocale(const QString& qstrCurLocale)
+bool	ZFqt::Locale::SetCurLocale(const QString& qstrCurLocale)
 {
 	this->m_qstrCurLocale	=	qstrCurLocale;
-	if (this->m_qstrCurLocale != "en_US")
-	{
-		this->SetCfgItem("CUR_LOCALE", this->m_qstrCurLocale);
-		this->OpenTableLocale(this->m_qstrCurLocale);
-	}
+
+	this->SetCfgItem("CUR_LOCALE", this->m_qstrCurLocale);
+	this->OpenTableLocale(this->m_qstrCurLocale);
+
+	return true;
 }
 
-void	ZFqt::Locale::GenerateLocaleTemplate(const QString& qstrFilePathLocale)
+bool	ZFqt::Locale::GenerateLocaleTemplate(const QString& qstrFilePathLocale)
 {
 	// check parameters
 	if (qstrFilePathLocale.isEmpty())
@@ -244,12 +262,20 @@ void	ZFqt::Locale::GenerateLocaleTemplate(const QString& qstrFilePathLocale)
 			"ZFqt::Locale::GenerateLocaleTemplate(\"%s\") failed: qstrFilePathLocale is EMPTY !!!\n",
 			qstrFilePathLocale.toStdString().c_str());
 
-		return;
+		return false;
 	}
 
 	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
 		"ZFqt::Locale::GenerateLocaleTemplate(\"%s\") begin ...\n",
 		qstrFilePathLocale.toStdString().c_str());
+
+	QString	qstrLocaleName(this->m_qstrCurLocale);
+	QString	qstrLocaleValue	=	this->GetLocaleValue(qstrLocaleName);
+	if (qstrLocaleValue.isEmpty())
+	{
+		qstrLocaleName	=	"en_US";
+		qstrLocaleValue	=	"English";
+	}
 
 	for (int32_t iOnce = 0; iOnce < 1; ++iOnce)
 	{
@@ -269,8 +295,8 @@ void	ZFqt::Locale::GenerateLocaleTemplate(const QString& qstrFilePathLocale)
 		xmlWriter.writeStartDocument("1.0", true);
 
 			xmlWriter.writeStartElement("Locale");
-			xmlWriter.writeAttribute("name", "en_US");
-			xmlWriter.writeAttribute("value", "English");
+			xmlWriter.writeAttribute("name", qstrLocaleName);
+			xmlWriter.writeAttribute("value", qstrLocaleValue);
 
 			QString	qstrStmt =
 				QString("SELECT name, value FROM tbl_") + this->m_qstrCurLocale + " ORDER BY name ASC";
@@ -303,6 +329,8 @@ void	ZFqt::Locale::GenerateLocaleTemplate(const QString& qstrFilePathLocale)
 			"ZFqt::Locale::GenerateLocaleTemplate(\"%s\") finished successfully !!!\n",
 			qstrFilePathLocale.toStdString().c_str());
 	}
+
+	return true;
 }
 
 QString	ZFqt::Locale::ImportLocale(const QString& qstrFilePathLocale)
