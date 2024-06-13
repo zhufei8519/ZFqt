@@ -27,7 +27,7 @@ ZFqt::Locale::~Locale()
 	this->Close();
 }
 
-int32_t	ZFqt::Locale::Open(const QString& qstrDBHome, const QString& qstrDBName, const QString& qstrPassword)
+int32_t	ZFqt::Locale::Open(const QString& qstrDBHome, const QString& qstrDBName, const QString& qstrPassword, const QString& qstrDataSourceDir)
 {
 	// close first if app database already opened
 	if (this->IsOpen())
@@ -69,7 +69,7 @@ int32_t	ZFqt::Locale::Open(const QString& qstrDBHome, const QString& qstrDBName,
 		}
 		if (!this->IsLocaleInitialized(this->m_qstrCurLocale))
 		{
-			this->m_qstrCurLocale	=	this->ImportLocale(ZFqt::App::Instance()->GetAppHome() + QDir::separator() + "data" + QDir::separator() + "locale" + QDir::separator() + "locale." + this->m_qstrCurLocale + ".xml");
+			this->m_qstrCurLocale	=	this->ImportLocale(ZFqt::App::Instance()->GetAppHome() + QDir::separator() + qstrDataSourceDir + QDir::separator() + "locale" + QDir::separator() + "locale." + this->m_qstrCurLocale + ".xml");
 			if (this->m_qstrCurLocale.isEmpty())
 			{
 				this->m_qstrCurLocale	=	"en_US";

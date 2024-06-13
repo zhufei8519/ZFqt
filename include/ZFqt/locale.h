@@ -14,7 +14,7 @@ namespace ZFqt
 		Locale();
 		virtual ~Locale();
 
-		virtual int32_t	Open(const QString& qstrDBHome, const QString& qstrDBName, const QString& qstrPassword);
+		virtual int32_t	Open(const QString& qstrDBHome, const QString& qstrDBName, const QString& qstrPassword, const QString& qstrDataSourceDir = "data");
 		virtual int32_t	Close();
 
 		bool	IsLocaleInitialized(const QString& qstrLocaleName);
