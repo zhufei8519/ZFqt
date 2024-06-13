@@ -22,17 +22,3 @@ bool	ZFqt::IsZSTR(const char* pstr)
 	return false;
 }
 
-bool	ZFqt::IsMainWindowCreated()
-{
-	if (!ZFqt::s_bIsMainWindowCreated)
-	{
-		QWidgetList	listWidgets = QApplication::topLevelWidgets();
-		if (!listWidgets.isEmpty())
-		{
-			ZFqt::s_bIsMainWindowCreated	=	true;
-		}
-	}
-
-	return ZFqt::s_bIsMainWindowCreated;
-}
-
