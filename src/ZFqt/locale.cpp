@@ -35,7 +35,7 @@ int32_t	ZFqt::Locale::Open(const QString& qstrDBHome, const QString& qstrDBName,
 		this->Close();
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::Locale::Open(\"%s\") begin ...\n",
 		qstrDBName.toStdString().c_str());
 
@@ -62,8 +62,8 @@ int32_t	ZFqt::Locale::Open(const QString& qstrDBHome, const QString& qstrDBName,
 		{
 			this->m_qstrCurLocale	=	ZFqt::Locale::GetSystemLocale();
 
-			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
-				"ZFqt::Locale::Open(\"%s\") info: NONE CUR_LOCALE configured, use system locale[\"%s\"] ...\n",
+			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
+				"ZFqt::Locale::Open(\"%s\") : NONE CUR_LOCALE configured, use system locale[\"%s\"] ...\n",
 				this->m_qstrDBName.toStdString().c_str(),
 				this->m_qstrCurLocale.toStdString().c_str());
 		}
@@ -76,7 +76,7 @@ int32_t	ZFqt::Locale::Open(const QString& qstrDBHome, const QString& qstrDBName,
 			}
 		}
 
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 			"ZFqt::Locale::Open(\"%s\") successfully with locale[\"%s\"] ...\n",
 			this->m_qstrDBName.toStdString().c_str(),
 			this->m_qstrCurLocale.toStdString().c_str());
@@ -97,13 +97,13 @@ int32_t	ZFqt::Locale::Close()
 	{
 		QString	qstrDBName	=	this->m_qstrDBName;
 
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 			"ZFqt::Locale::Close(\"%s\") begin ...\n",
 			qstrDBName.toStdString().c_str());
 
 		ZFqt::DBAppBase::Close();
 
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 			"ZFqt::Locale::Close(\"%s\") successfully !!!\n",
 			qstrDBName.toStdString().c_str());
 	}
@@ -118,7 +118,7 @@ bool	ZFqt::Locale::IsLocaleInitialized(const QString& qstrLocaleName)
 	// check parameters
 	if (qstrLocaleName.isEmpty())
 	{
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 			"ZFqt::Locale::IsLocaleInitialized(\"%s\") failed: locale name is EMPTY !!!\n",
 			qstrLocaleName.toStdString().c_str());
 
@@ -168,7 +168,7 @@ QString	ZFqt::Locale::GetLocaleString(const QString& qstr_en_US)
 				if (!query.exec(qstrStmt))
 				{
 					ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
-						"ZFqt::Locale::GetLocaleString(\"%s\") failed: failed to execute SQL[\"%s\"], ERROR message[\"%s\"], return default value[\"%s\"] directly !!!\n",
+						"ZFqt::Locale::GetLocaleString(\"%s\") : failed to execute SQL[\"%s\"], ERROR message[\"%s\"], return default value[\"%s\"] directly !!!\n",
 						qstr_en_US.toStdString().c_str(),
 						qstrStmt.toStdString().c_str(),
 						query.lastError().text().toStdString().c_str(),
@@ -179,7 +179,7 @@ QString	ZFqt::Locale::GetLocaleString(const QString& qstr_en_US)
 				if (!query.next())
 				{
 					ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
-						"ZFqt::Locale::GetLocaleString(\"%s\") failed: NONE locale string queried, set and return default value[\"%s\"] !!!\n",
+						"ZFqt::Locale::GetLocaleString(\"%s\") : NONE locale string queried, set and return default value[\"%s\"] !!!\n",
 						qstr_en_US.toStdString().c_str(),
 						qstr_en_US.toStdString().c_str());
 
@@ -196,7 +196,7 @@ QString	ZFqt::Locale::GetLocaleString(const QString& qstr_en_US)
 		}
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Trace,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::Locale::GetLocaleString(\"%s\") successfully with value[\"%s\"].\n",
 		qstr_en_US.toStdString().c_str(), qstrLocale.toStdString().c_str());
 
@@ -258,14 +258,14 @@ bool	ZFqt::Locale::GenerateLocaleTemplate(const QString& qstrFilePathLocale)
 	// check parameters
 	if (qstrFilePathLocale.isEmpty())
 	{
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 			"ZFqt::Locale::GenerateLocaleTemplate(\"%s\") failed: qstrFilePathLocale is EMPTY !!!\n",
 			qstrFilePathLocale.toStdString().c_str());
 
 		return false;
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::Locale::GenerateLocaleTemplate(\"%s\") begin ...\n",
 		qstrFilePathLocale.toStdString().c_str());
 
@@ -282,7 +282,7 @@ bool	ZFqt::Locale::GenerateLocaleTemplate(const QString& qstrFilePathLocale)
 		QFile	xmlFile(qstrFilePathLocale);
 		if (!xmlFile.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text))
 		{
-			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 				"ZFqt::Locale::GenerateLocaleTemplate(\"%s\") failed: open file to write failed !!!\n",
 				qstrFilePathLocale.toStdString().c_str());
 
@@ -303,7 +303,7 @@ bool	ZFqt::Locale::GenerateLocaleTemplate(const QString& qstrFilePathLocale)
 			QSqlQuery	query(QSqlDatabase::database(this->m_qstrDBName));
 			if (!query.exec(qstrStmt))
 			{
-				ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+				ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 					"ZFqt::Locale::GenerateLocaleTemplate(\"%s\") failed: failed to execute SQL[\"%s\"], ERROR message[\"%s\"] !!!\n",
 					qstrFilePathLocale.toStdString().c_str(),
 					qstrStmt.toStdString().c_str(),
@@ -325,7 +325,7 @@ bool	ZFqt::Locale::GenerateLocaleTemplate(const QString& qstrFilePathLocale)
 
 		xmlFile.close();
 
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 			"ZFqt::Locale::GenerateLocaleTemplate(\"%s\") finished successfully !!!\n",
 			qstrFilePathLocale.toStdString().c_str());
 	}
@@ -338,14 +338,14 @@ QString	ZFqt::Locale::ImportLocale(const QString& qstrFilePathLocale)
 	// check parameters
 	if (qstrFilePathLocale.isEmpty())
 	{
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 			"ZFqt::Locale::ImportLocale(\"%s\") failed: qstrFilePathLocale is EMPTY !!!\n",
 			qstrFilePathLocale.toStdString().c_str());
 
 		return "";
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::Locale::ImportLocale(\"%s\") begin ...\n",
 		qstrFilePathLocale.toStdString().c_str());
 
@@ -358,7 +358,7 @@ QString	ZFqt::Locale::ImportLocale(const QString& qstrFilePathLocale)
 		QFile	xmlFile(qstrFilePathLocale);
 		if (!xmlFile.open(QIODevice::ReadOnly | QIODevice::Text))
 		{
-			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 				"ZFqt::Locale::ImportLocale(\"%s\") failed: open file to read failed !!!\n",
 				qstrFilePathLocale.toStdString().c_str());
 
@@ -378,7 +378,7 @@ QString	ZFqt::Locale::ImportLocale(const QString& qstrFilePathLocale)
 					qstrLocaleName	=	attributes.value("name").toString();
 					qstrLocaleValue	=	attributes.value("value").toString();
 
-					ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+					ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 						"rootNode[\"Locale\"] read, LocaleName[\"%s\"], LocaleValue[\"%s\"] ...\n",
 						qstrLocaleName.toStdString().c_str(), qstrLocaleValue.toStdString().c_str());
 				}
@@ -388,27 +388,27 @@ QString	ZFqt::Locale::ImportLocale(const QString& qstrFilePathLocale)
 					QString	qstr_locale	=	attributes.value("locale").toString();
 					mapLocaleStrings[qstr_en_US]	=	qstr_locale;
 
-					ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+					ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 						"itemNode[\"Item\"] read, English[\"%s\"], Locale[\"%s\"] ...\n",
 						qstr_en_US.toStdString().c_str(), qstr_locale.toStdString().c_str());
 				}
 			}
 			else if (tokenType == QXmlStreamReader::StartDocument)
 			{
-				ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+				ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 					"ZFqt::Locale::ImportLocale(\"%s\") begin read locale file ...\n",
 					qstrFilePathLocale.toStdString().c_str());
 			}
 			else if (tokenType == QXmlStreamReader::EndDocument)
 			{
-				ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+				ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 					"ZFqt::Locale::ImportLocale(\"%s\") finished read locale file !!!\n",
 					qstrFilePathLocale.toStdString().c_str());
 			}
 		}
 		if (xmlReader.hasError())
 		{
-			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 				"ZFqt::Locale::ImportLocale(\"%s\") failed: XML file is corrupted !!!\n",
 				qstrFilePathLocale.toStdString().c_str());
 
@@ -421,7 +421,7 @@ QString	ZFqt::Locale::ImportLocale(const QString& qstrFilePathLocale)
 
 		if (this->PersistenceLocale(qstrLocaleName, qstrLocaleValue, mapLocaleStrings) != ZFqt::E_Errno_SUCCESS)
 		{
-			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 				"ZFqt::Locale::ImportLocale(\"%s\") failed: failed on persistence !!!\n",
 				qstrFilePathLocale.toStdString().c_str());
 
@@ -432,7 +432,7 @@ QString	ZFqt::Locale::ImportLocale(const QString& qstrFilePathLocale)
 			break;
 		}
 
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 			"ZFqt::Locale::ImportLocale(\"%s\") finished successfully !!!\n",
 			qstrFilePathLocale.toStdString().c_str());
 		xmlFile.close();
@@ -467,7 +467,7 @@ int32_t	ZFqt::Locale::OpenTableSupportedLocales()
 		return ZFqt::E_Errno_SUCCESS;
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::Locale::OpenTableSupportedLocales(\"%s\") begin ...\n",
 		qstrTableName.toStdString().c_str());
 
@@ -476,7 +476,7 @@ int32_t	ZFqt::Locale::OpenTableSupportedLocales()
 	QSqlQuery	query(QSqlDatabase::database(this->m_qstrDBName));
 	if (!query.exec(qstrStmt))
 	{
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 			"ZFqt::Locale::OpenTableSupportedLocales(\"%s\") failed: SQL script[\"%s\"], ERROR message[\"%s\"] !!!\n",
 			qstrTableName.toStdString().c_str(),
 			qstrStmt.toStdString().c_str(),
@@ -485,7 +485,7 @@ int32_t	ZFqt::Locale::OpenTableSupportedLocales()
 		return ZFqt::E_Errno_ERR_GENERAL;
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::Locale::OpenTableSupportedLocales(\"%s\") successfully .\n",
 		qstrTableName.toStdString().c_str());
 
@@ -507,7 +507,7 @@ int32_t	ZFqt::Locale::OpenTableLocale(const QString& qstrLocale, bool bTruncate)
 		QSqlQuery	query(QSqlDatabase::database(this->m_qstrDBName));
 		if (!query.exec(qstrStmt))
 		{
-			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 				"ZFqt::Locale::OpenTableLocale(\"%s\") failed: failed on DROP TABLE, SQL script[\"%s\"], ERROR message[\"%s\"] !!!\n",
 				qstrLocaleTableName.toStdString().c_str(),
 				qstrStmt.toStdString().c_str(),
@@ -517,7 +517,7 @@ int32_t	ZFqt::Locale::OpenTableLocale(const QString& qstrLocale, bool bTruncate)
 		}
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::Locale::OpenTableLocale(\"%s\") begin ...\n",
 		qstrLocaleTableName.toStdString().c_str());
 
@@ -526,7 +526,7 @@ int32_t	ZFqt::Locale::OpenTableLocale(const QString& qstrLocale, bool bTruncate)
 	QSqlQuery	query(QSqlDatabase::database(this->m_qstrDBName));
 	if (!query.exec(qstrStmt))
 	{
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 			"ZFqt::Locale::OpenTableLocale(\"%s\") failed: SQL script[\"%s\"], ERROR message[\"%s\"] !!!\n",
 			qstrLocaleTableName.toStdString().c_str(),
 			qstrStmt.toStdString().c_str(),
@@ -535,7 +535,7 @@ int32_t	ZFqt::Locale::OpenTableLocale(const QString& qstrLocale, bool bTruncate)
 		return ZFqt::E_Errno_ERR_GENERAL;
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::Locale::OpenTableLocale(\"%s\") successfully .\n",
 		qstrLocaleTableName.toStdString().c_str());
 

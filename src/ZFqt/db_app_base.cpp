@@ -29,7 +29,7 @@ int32_t	ZFqt::DBAppBase::Open(const QString& qstrDBHome, const QString& qstrDBNa
 	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Trace,
 		"\n");
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::DBAppBase::Open(\"%s\") begin ...\n",
 		qstrDBName.toStdString().c_str());
 
@@ -95,7 +95,7 @@ int32_t	ZFqt::DBAppBase::Open(const QString& qstrDBHome, const QString& qstrDBNa
 			break;
 		}
 
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 			"ZFqt::DBAppBase::Open(\"%s\") successfully .\n",
 			this->m_qstrDBName.toStdString().c_str());
 
@@ -113,7 +113,7 @@ int32_t	ZFqt::DBAppBase::Close()
 {
 	if (!this->m_qstrDBName.isEmpty())
 	{
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 			"ZFqt::DBAppBase::Close(\"%s\") begin ...\n",
 			this->m_qstrDBName.toStdString().c_str());
 
@@ -123,7 +123,7 @@ int32_t	ZFqt::DBAppBase::Close()
 			QSqlDatabase::removeDatabase(this->m_qstrDBName);
 		}
 
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 			"ZFqt::DBAppBase::Close(\"%s\") successfully !!!\n",
 			this->m_qstrDBName.toStdString().c_str());
 
@@ -150,7 +150,7 @@ int32_t	ZFqt::DBAppBase::SetCfgItem(const QString& qstrName, const QString& qstr
 	QSqlQuery	query_get(QSqlDatabase::database(this->m_qstrDBName));
 	if (!query_get.exec(qstrStmt_get))
 	{
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 			"ZFqt::DBAppBase::SetCfgItem(\"%s\", \"%s\") failed: failed to execute SQL[\"%s\"], ERROR message[\"%s\"] !!!\n",
 			qstrName.toStdString().c_str(), qstrValue.toStdString().c_str(),
 			qstrStmt_get.toStdString().c_str(),
@@ -171,7 +171,7 @@ int32_t	ZFqt::DBAppBase::SetCfgItem(const QString& qstrName, const QString& qstr
 	QSqlQuery	query_set(QSqlDatabase::database(this->m_qstrDBName));
 	if (!query_set.exec(qstrStmt_set))
 	{
-		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 			"ZFqt::DBAppBase::SetCfgItem(\"%s\", \"%s\") failed: failed to execute SQL[\"%s\"], ERROR message[\"%s\"] !!!\n",
 			qstrName.toStdString().c_str(), qstrValue.toStdString().c_str(),
 			qstrStmt_get.toStdString().c_str(),
@@ -180,7 +180,7 @@ int32_t	ZFqt::DBAppBase::SetCfgItem(const QString& qstrName, const QString& qstr
 		return ZFqt::E_Errno_ERR_GENERAL;
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::DBAppBase::SetCfgItem(\"%s\", \"%s\") successfully.\n",
 		qstrName.toStdString().c_str(), qstrValue.toStdString().c_str());
 
@@ -198,7 +198,7 @@ QString	ZFqt::DBAppBase::GetCfgItem(const QString& qstrName, const QString& qstr
 		QSqlQuery	query(QSqlDatabase::database(this->m_qstrDBName));
 		if (!query.exec(qstrStmt))
 		{
-			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
+			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 				"ZFqt::DBAppBase::GetCfgItem(\"%s\") failed: failed to execute SQL[\"%s\"], ERROR message[\"%s\"], return default value[\"%s\"] directly !!!\n",
 				qstrName.toStdString().c_str(),
 				qstrStmt.toStdString().c_str(),
@@ -212,14 +212,14 @@ QString	ZFqt::DBAppBase::GetCfgItem(const QString& qstrName, const QString& qstr
 		{
 			qstrValue	=	query.value(0).toString();
 
-			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 				"ZFqt::DBAppBase::GetCfgItem(\"%s\") successfully with value[\"%s\"].\n",
 				qstrName.toStdString().c_str(), qstrValue.toStdString().c_str());
 		}
 		else if (!qstrDftValue.isEmpty())
 		{
 			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
-				"ZFqt::DBAppBase::GetCfgItem(\"%s\") failed: NONE config item queried, set and return default value[\"%s\"] !!!\n",
+				"ZFqt::DBAppBase::GetCfgItem(\"%s\") : NONE config item queried, set and return default value[\"%s\"] !!!\n",
 				qstrName.toStdString().c_str(),
 				qstrDftValue.toStdString().c_str());
 
@@ -228,7 +228,7 @@ QString	ZFqt::DBAppBase::GetCfgItem(const QString& qstrName, const QString& qstr
 		else
 		{
 			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn,
-				"ZFqt::DBAppBase::GetCfgItem(\"%s\") failed: NONE config item queried, and NONE default value given, return EMPTY !!!\n",
+				"ZFqt::DBAppBase::GetCfgItem(\"%s\") : NONE config item queried, and NONE default value given, return EMPTY !!!\n",
 				qstrName.toStdString().c_str());
 		}
 	}
@@ -283,7 +283,7 @@ int32_t	ZFqt::DBAppBase::OpenTableCfg()
 		return ZFqt::E_Errno_SUCCESS;
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::DBAppBase::OpenTableCfg() begin ...\n");
 
 	QString		qstrStmt	=
@@ -299,7 +299,7 @@ int32_t	ZFqt::DBAppBase::OpenTableCfg()
 		return ZFqt::E_Errno_ERR_GENERAL;
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
 		"ZFqt::DBAppBase::OpenTableCfg() successfully .\n");
 
 	return ZFqt::E_Errno_SUCCESS;
