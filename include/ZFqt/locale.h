@@ -52,6 +52,32 @@ namespace ZFqt
 
 #define	ZFqt_T(x)	ZFqt::Locale::Instance()->GetLocaleString(x)
 
+#define ZFqt_EventLogSuccess(pstrEvent) \
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info, \
+			"%s[\"%s\"] %s%s[%s]%s\n", \
+			ZFqt_T("event received").toStdString().c_str(), \
+			ZFqt_T(pstrEvent).toStdString().c_str(), \
+			ZFqt_T(":").toStdString().c_str(), \
+			ZFqt_T("result").toStdString().c_str(), \
+			ZFqt_T("successfully").toStdString().c_str(), \
+			ZFqt_T(".").toStdString().c_str());
+
+#define ZFqt_EventLogFailed(pstrEvent, nErrno, qstrErrMsg) \
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn, \
+			"%s [\"%s\"] %s%s[%s]%s%s[%d]%s%s[\"%s\"]%s\n", \
+			ZFqt_T("event received").toStdString().c_str(), \
+			ZFqt_T(pstrEvent).toStdString().c_str(), \
+			ZFqt_T(":").toStdString().c_str(), \
+			ZFqt_T("result").toStdString().c_str(), \
+			ZFqt_T("failed").toStdString().c_str(), \
+			ZFqt_T(",").toStdString().c_str(), \
+			ZFqt_T("errno").toStdString().c_str(), \
+			nErrno, \
+			ZFqt_T(",").toStdString().c_str(), \
+			ZFqt_T("error message").toStdString().c_str(), \
+			qstrErrMsg.toStdString().c_str(), \
+			ZFqt_T("!!!").toStdString().c_str());
+
 #define ZFqt_OpLogBegin(pstrOpCmd) \
 		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info, \
 			"%s [\"%s\"] %s%s\n", \
