@@ -75,7 +75,7 @@ namespace ZFqt
 			nErrno, \
 			ZFqt_T(",").toStdString().c_str(), \
 			ZFqt_T("error message").toStdString().c_str(), \
-			qstrErrMsg.toStdString().c_str(), \
+			ZFqt_T(qstrErrMsg).toStdString().c_str(), \
 			ZFqt_T("!!!").toStdString().c_str());
 
 #define ZFqt_OpLogBegin(pstrOpCmd) \
@@ -111,7 +111,7 @@ namespace ZFqt
 			nErrno, \
 			ZFqt_T(",").toStdString().c_str(), \
 			ZFqt_T("error message").toStdString().c_str(), \
-			qstrErrMsg.toStdString().c_str(), \
+			ZFqt_T(qstrErrMsg).toStdString().c_str(), \
 			ZFqt_T("!!!").toStdString().c_str());
 
 inline

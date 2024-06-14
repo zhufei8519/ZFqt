@@ -196,7 +196,7 @@ QString	ZFqt::Locale::GetLocaleString(const QString& qstr_en_US)
 		}
 	}
 
-	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Debug,
+	ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Trace,
 		"ZFqt::Locale::GetLocaleString(\"%s\") successfully with value[\"%s\"].\n",
 		qstr_en_US.toStdString().c_str(), qstrLocale.toStdString().c_str());
 
