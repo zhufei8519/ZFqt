@@ -13,6 +13,8 @@
 #include <QThread>
 #include <QString>
 #include <QDateTime>
+#include <QDir>
+#include <QFile>
 
 #include <QWaitCondition>
 #include <QMutex>

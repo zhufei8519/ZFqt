@@ -1,7 +1,6 @@
 ﻿
 #include "ZFqt/app.h"
 #include <QApplication>
-#include <QDir>
 
 ZFqt::App*	ZFqt::App::m_spInstance	=	NULL;
 

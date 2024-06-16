@@ -4,7 +4,6 @@
 
 #include "ZFqt/types.h"
 #include <map>
-#include <QFile>
 class QTextEdit;
 
 #define ZFqt_Log_Header_Info	__FILE__, __LINE__

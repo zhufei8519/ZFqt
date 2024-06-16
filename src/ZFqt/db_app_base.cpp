@@ -2,8 +2,6 @@
 #include "ZFqt/db_app_base.h"
 #include "ZFqt/threaded/log.h"
 
-#include <QDir>
-
 ZFqt::DBAppBase::DBAppBase()
 {
 }

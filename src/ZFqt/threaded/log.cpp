@@ -1,8 +1,6 @@
 ﻿
 #include "ZFqt/threaded/log.h"
 #include "ZFqt/common.h"
-#include <QDir>
-#include <QDateTime>
 #include <QTextEdit>
 
 namespace ZFqt

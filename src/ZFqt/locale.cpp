@@ -3,8 +3,6 @@
 #include "ZFqt/app.h"
 #include "ZFqt/threaded/log.h"
 
-#include <QDir>
-
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
