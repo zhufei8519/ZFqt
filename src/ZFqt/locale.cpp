@@ -12,6 +12,12 @@
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
 
+#include <QMenu>
+#include <QAction>
+#include <QToolButton>
+#include <QDockWidget>
+#include <QTabWidget>
+
 ZFqt::Locale*	ZFqt::Locale::m_spInstance	=	NULL;
 
 ZFqt::Locale::Locale()
@@ -455,6 +461,70 @@ QString	ZFqt::Locale::GetSystemLocale()
 	}
 
 	return qstrLangSys;
+}
+
+void	ZFqt::Locale::OnLoacleChanged()
+{
+	// Menu
+	std::map< QMenu*, const char* >::iterator	iterMapLocales_Menu;
+	for (iterMapLocales_Menu = this->m_mapLocales_Menu.begin(); iterMapLocales_Menu != this->m_mapLocales_Menu.end(); ++iterMapLocales_Menu)
+	{
+		iterMapLocales_Menu->first->setTitle(ZFqt_T(iterMapLocales_Menu->second));
+	}
+
+	// MenuItem
+	std::map< QAction*, const char* >::iterator	iterMapLocales_MenuItem;
+	for (iterMapLocales_MenuItem = this->m_mapLocales_MenuItem.begin(); iterMapLocales_MenuItem != this->m_mapLocales_MenuItem.end(); ++iterMapLocales_MenuItem)
+	{
+		iterMapLocales_MenuItem->first->setText(ZFqt_T(iterMapLocales_MenuItem->second));
+	}
+
+	// ToolButton
+	std::map< QToolButton*, const char* >::iterator	iterMapLocales_ToolButton;
+	for (iterMapLocales_ToolButton = this->m_mapLocales_ToolButton.begin(); iterMapLocales_ToolButton != this->m_mapLocales_ToolButton.end(); ++iterMapLocales_ToolButton)
+	{
+		iterMapLocales_ToolButton->first->setText(ZFqt_T(iterMapLocales_ToolButton->second));
+	}
+
+	// DockWidget
+	std::map< QDockWidget*, const char* >::iterator	iterMapLocales_DockWidget;
+	for (iterMapLocales_DockWidget = this->m_mapLocales_DockWidget.begin(); iterMapLocales_DockWidget != this->m_mapLocales_DockWidget.end(); ++iterMapLocales_DockWidget)
+	{
+		iterMapLocales_DockWidget->first->setWindowTitle(ZFqt_T(iterMapLocales_DockWidget->second));
+	}
+
+	// TabPage
+	std::multimap< QTabWidget*, ZFqt::TTabHeaderLocaleInfo >::iterator	iterMapLocales_TabPage;
+	for (iterMapLocales_TabPage = this->m_multimapLocales_TabPage.begin(); iterMapLocales_TabPage != this->m_multimapLocales_TabPage.end(); ++iterMapLocales_TabPage)
+	{
+		iterMapLocales_TabPage->first->setTabText(iterMapLocales_TabPage->second.nIndex, ZFqt_T(iterMapLocales_TabPage->second.pstrLabel_en_US));
+	}
+}
+
+void	ZFqt::Locale::OnMenuCreated(QMenu* pMenu, const char* pstrLabel_en_US)
+{
+	this->m_mapLocales_Menu.insert(std::make_pair(pMenu, pstrLabel_en_US));
+}
+
+void	ZFqt::Locale::OnMenuItemCreated(QAction* pMenuItem, const char* pstrLabel_en_US)
+{
+	this->m_mapLocales_MenuItem.insert(std::make_pair(pMenuItem, pstrLabel_en_US));
+}
+
+void	ZFqt::Locale::OnToolButtonCreated(QToolButton* pToolButton, const char* pstrLabel_en_US)
+{
+	this->m_mapLocales_ToolButton.insert(std::make_pair(pToolButton, pstrLabel_en_US));
+}
+
+void	ZFqt::Locale::OnDockWidgetCreated(QDockWidget* pDockWidget, const char* pstrLabel_en_US)
+{
+	this->m_mapLocales_DockWidget.insert(std::make_pair(pDockWidget, pstrLabel_en_US));
+}
+
+void	ZFqt::Locale::OnTabPageCreated(QTabWidget* pTabWidget, int nIndex, const char* pstrLabel_en_US)
+{
+	ZFqt::TTabHeaderLocaleInfo	tabHeaderLocalInfo(pTabWidget, nIndex, pstrLabel_en_US);
+	this->m_multimapLocales_TabPage.insert(std::make_pair(pTabWidget, tabHeaderLocalInfo));
 }
 
 int32_t	ZFqt::Locale::OpenTableSupportedLocales()

@@ -3,11 +3,29 @@
 #define ZFqt_LOCALE_H
 
 #include "ZFqt/db_app_base.h"
-class QLabel;
+class QMenu;
 class QAction;
+class QToolButton;
+class QDockWidget;
+class QTabWidget;
+class QLabel;
 
 namespace ZFqt
 {
+	struct TTabHeaderLocaleInfo
+	{
+		QTabWidget*	pTabWidget;
+		int			nIndex;
+		const char* pstrLabel_en_US;
+
+		TTabHeaderLocaleInfo()
+			:pTabWidget(NULL), nIndex(-1), pstrLabel_en_US(NULL)
+		{}
+		TTabHeaderLocaleInfo(QTabWidget* pTabWidgetParam, int nIndexParam, const char* pstrLabel_en_USParam)
+			:pTabWidget(pTabWidgetParam), nIndex(nIndexParam), pstrLabel_en_US(pstrLabel_en_USParam)
+		{}
+	};
+
 	class ZFqt_Export Locale: public DBAppBase
 	{
 	public:
@@ -31,6 +49,14 @@ namespace ZFqt
 
 		static	QString	GetSystemLocale();
 
+		void	OnLoacleChanged();
+
+		void	OnMenuCreated(QMenu* pMenu, const char* pstrLabel_en_US);
+		void	OnMenuItemCreated(QAction* pMenuItem, const char* pstrLabel_en_US);
+		void	OnToolButtonCreated(QToolButton* pToolButton, const char* pstrLabel_en_US);
+		void	OnDockWidgetCreated(QDockWidget* pDockWidget, const char* pstrLabel_en_US);
+		void	OnTabPageCreated(QTabWidget* pTabWidget, int nIndex, const char* pstrLabel_en_US);
+
 	protected:
 		int32_t	OpenTableSupportedLocales();
 		int32_t	OpenTableLocale(const QString& qstrLocale, bool bTruncate = false);
@@ -40,6 +66,12 @@ namespace ZFqt
 
 	protected:
 		QString	m_qstrCurLocale;
+
+		std::map< QMenu*, const char* >			m_mapLocales_Menu;
+		std::map< QAction*, const char* >		m_mapLocales_MenuItem;
+		std::map< QToolButton*, const char* >	m_mapLocales_ToolButton;
+		std::map< QDockWidget*, const char* >	m_mapLocales_DockWidget;
+		std::multimap< QTabWidget*, ZFqt::TTabHeaderLocaleInfo >	m_multimapLocales_TabPage;
 
 	public:
 		static Locale*	Instance();
