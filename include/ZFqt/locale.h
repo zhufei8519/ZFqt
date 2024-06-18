@@ -57,6 +57,12 @@ namespace ZFqt
 		void	OnDockWidgetCreated(QDockWidget* pDockWidget, const char* pstrLabel_en_US);
 		void	OnTabPageCreated(QTabWidget* pTabWidget, int nIndex, const char* pstrLabel_en_US);
 
+		void	OnMenuUpdated(QMenu* pMenu, const char* pstrLabel_en_US);
+		void	OnMenuItemUpdated(QAction* pMenuItem, const char* pstrLabel_en_US);
+		void	OnToolButtonUpdated(QToolButton* pToolButton, const char* pstrLabel_en_US);
+		void	OnDockWidgetUpdated(QDockWidget* pDockWidget, const char* pstrLabel_en_US);
+		void	OnTabPageUpdated(QTabWidget* pTabWidget, int nIndex, const char* pstrLabel_en_US);
+
 	protected:
 		int32_t	OpenTableSupportedLocales();
 		int32_t	OpenTableLocale(const QString& qstrLocale, bool bTruncate = false);

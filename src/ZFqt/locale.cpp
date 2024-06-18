@@ -527,6 +527,90 @@ void	ZFqt::Locale::OnTabPageCreated(QTabWidget* pTabWidget, int nIndex, const ch
 	this->m_multimapLocales_TabPage.insert(std::make_pair(pTabWidget, tabHeaderLocalInfo));
 }
 
+void	ZFqt::Locale::OnMenuUpdated(QMenu* pMenu, const char* pstrLabel_en_US)
+{
+	std::map< QMenu*, const char* >::iterator	iterMapLocales_Menu	=
+		this->m_mapLocales_Menu.find(pMenu);
+	if (iterMapLocales_Menu != this->m_mapLocales_Menu.end())
+	{
+		iterMapLocales_Menu->second	=	pstrLabel_en_US;
+	}
+	else
+	{
+		this->m_mapLocales_Menu.insert(std::make_pair(pMenu, pstrLabel_en_US));
+	}
+}
+
+void	ZFqt::Locale::OnMenuItemUpdated(QAction* pMenuItem, const char* pstrLabel_en_US)
+{
+	std::map< QAction*, const char* >::iterator	iterMapLocales_MenuItem =
+		this->m_mapLocales_MenuItem.find(pMenuItem);
+	if (iterMapLocales_MenuItem != this->m_mapLocales_MenuItem.end())
+	{
+		iterMapLocales_MenuItem->second	=	pstrLabel_en_US;
+	}
+	else
+	{
+		this->m_mapLocales_MenuItem.insert(std::make_pair(pMenuItem, pstrLabel_en_US));
+	}
+}
+
+void	ZFqt::Locale::OnToolButtonUpdated(QToolButton* pToolButton, const char* pstrLabel_en_US)
+{
+	std::map< QToolButton*, const char* >::iterator	iterMapLocales_ToolButton =
+		this->m_mapLocales_ToolButton.find(pToolButton);
+	if (iterMapLocales_ToolButton != this->m_mapLocales_ToolButton.end())
+	{
+		iterMapLocales_ToolButton->second	=	pstrLabel_en_US;
+	}
+	else
+	{
+		this->m_mapLocales_ToolButton.insert(std::make_pair(pToolButton, pstrLabel_en_US));
+	}
+}
+
+void	ZFqt::Locale::OnDockWidgetUpdated(QDockWidget* pDockWidget, const char* pstrLabel_en_US)
+{
+	std::map< QDockWidget*, const char* >::iterator	iterMapLocales_DockWidget =
+		this->m_mapLocales_DockWidget.find(pDockWidget);
+	if (iterMapLocales_DockWidget != this->m_mapLocales_DockWidget.end())
+	{
+		iterMapLocales_DockWidget->second	=	pstrLabel_en_US;
+	}
+	else
+	{
+		this->m_mapLocales_DockWidget.insert(std::make_pair(pDockWidget, pstrLabel_en_US));
+	}
+}
+
+void	ZFqt::Locale::OnTabPageUpdated(QTabWidget* pTabWidget, int nIndex, const char* pstrLabel_en_US)
+{
+	std::multimap< QTabWidget*, ZFqt::TTabHeaderLocaleInfo >::iterator	iterMultimapLocales_TabPage	=
+		this->m_multimapLocales_TabPage.find(pTabWidget);
+	for (; iterMultimapLocales_TabPage != this->m_multimapLocales_TabPage.end(); ++iterMultimapLocales_TabPage)
+	{
+		if (iterMultimapLocales_TabPage->second.nIndex == nIndex)
+		{
+			break;
+		}
+		else
+		{
+			iterMultimapLocales_TabPage	=	this->m_multimapLocales_TabPage.end();
+			break;
+		}
+	}
+
+	if (iterMultimapLocales_TabPage != this->m_multimapLocales_TabPage.end())
+	{
+		iterMultimapLocales_TabPage->second.pstrLabel_en_US	=	pstrLabel_en_US;
+	}
+	else
+	{
+		ZFqt::TTabHeaderLocaleInfo	tabHeaderLocalInfo(pTabWidget, nIndex, pstrLabel_en_US);
+		this->m_multimapLocales_TabPage.insert(std::make_pair(pTabWidget, tabHeaderLocalInfo));
+	}
+}
+
 int32_t	ZFqt::Locale::OpenTableSupportedLocales()
 {
 	QString	qstrTableName	=	QString("tbl_locale");
