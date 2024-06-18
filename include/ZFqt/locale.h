@@ -3,12 +3,12 @@
 #define ZFqt_LOCALE_H
 
 #include "ZFqt/db_app_base.h"
+#include <QMessageBox>
 class QMenu;
 class QAction;
 class QToolButton;
 class QDockWidget;
 class QTabWidget;
-class QLabel;
 
 namespace ZFqt
 {
@@ -62,6 +62,12 @@ namespace ZFqt
 		void	OnToolButtonUpdated(QToolButton* pToolButton, const char* pstrLabel_en_US);
 		void	OnDockWidgetUpdated(QDockWidget* pDockWidget, const char* pstrLabel_en_US);
 		void	OnTabPageUpdated(QTabWidget* pTabWidget, int nIndex, const char* pstrLabel_en_US);
+
+		// for MainWindow
+		void	ShowInformationMsgBox(const QString& qstrTitle, const QString& qstrMsg);
+		void	ShowWarningMsgBox(const QString& qstrTitle, const QString& qstrMsg);
+		void	ShowCriticalMsgBox(const QString& qstrTitle, const QString& qstrMsg);
+		int		ExecQuestionMsgBox(const QString& qstrTitle, const QString& qstrMsg);
 
 	protected:
 		int32_t	OpenTableSupportedLocales();
