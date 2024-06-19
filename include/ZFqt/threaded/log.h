@@ -41,14 +41,14 @@ namespace ZFqt
 	};
 
 	// private functions
-	ZFqt_Export ET_LogLevel	GetLogLevel(const char* pstrLogLevel);
-	ZFqt_Export const char*	GetLogLevelString(ZFqt::ET_LogLevel eLogLevel);
+	ZFqt_API ET_LogLevel	GetLogLevel(const char* pstrLogLevel);
+	ZFqt_API const char*	GetLogLevelString(ZFqt::ET_LogLevel eLogLevel);
 };
 typedef std::shared_ptr< ZFqt::TLogItem >	ZFqt_SPLogItem;
 
 namespace ZFqt
 {
-	class ZFqt_Export LogMgr : public QObject
+	class ZFqt_API LogMgr : public QObject
 	{
 		Q_OBJECT
 

@@ -613,40 +613,6 @@ void	ZFqt::Locale::OnTabPageUpdated(QTabWidget* pTabWidget, int nIndex, const ch
 	}
 }
 
-		// for MainWindow
-void	ZFqt::Locale::ShowInformationMsgBox(const QString& qstrTitle, const QString& qstrMsg)
-{
-	QMessageBox	msgBoxInfo(QMessageBox::Information, qstrTitle, qstrMsg, QMessageBox::Ok);
-	msgBoxInfo.setButtonText(QMessageBox::Ok, ZFqt_T("Ok"));
-
-	msgBoxInfo.exec();
-}
-
-void	ZFqt::Locale::ShowWarningMsgBox(const QString& qstrTitle, const QString& qstrMsg)
-{
-	QMessageBox	msgBoxWarning(QMessageBox::Warning, qstrTitle, qstrMsg, QMessageBox::Ok);
-	msgBoxWarning.setButtonText(QMessageBox::Ok, ZFqt_T("Ok"));
-
-	msgBoxWarning.exec();
-}
-
-void	ShowCriticalMsgBox(const QString& qstrTitle, const QString& qstrMsg)
-{
-	QMessageBox	msgBoxWarning(QMessageBox::Critical, qstrTitle, qstrMsg, QMessageBox::Ok);
-	msgBoxWarning.setButtonText(QMessageBox::Ok, ZFqt_T("Ok"));
-
-	msgBoxWarning.exec();
-}
-
-int		ZFqt::Locale::ExecQuestionMsgBox(const QString& qstrTitle, const QString& qstrMsg)
-{
-	QMessageBox	msgBoxQuestion(QMessageBox::Question, qstrTitle, qstrMsg, QMessageBox::Yes | QMessageBox::No);
-	msgBoxQuestion.setButtonText(QMessageBox::Yes, ZFqt_T("Yes"));
-	msgBoxQuestion.setButtonText(QMessageBox::No, ZFqt_T("No"));
-
-	return msgBoxQuestion.exec();
-}
-
 int32_t	ZFqt::Locale::OpenTableSupportedLocales()
 {
 	QString	qstrTableName	=	QString("tbl_locale");

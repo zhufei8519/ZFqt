@@ -11,7 +11,7 @@
 
 namespace ZFqt
 {
-	class ZFqt_Export DBAppBase
+	class ZFqt_API DBAppBase
 	{
 	public:
 		DBAppBase();

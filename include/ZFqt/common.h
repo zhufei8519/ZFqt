@@ -6,7 +6,7 @@
 
 namespace ZFqt
 {
-	ZFqt_Export bool	IsZSTR(const char* pstr);
+	ZFqt_API bool	IsZSTR(const char* pstr);
 };
 
 #endif //end ZFqt_COMMON_H

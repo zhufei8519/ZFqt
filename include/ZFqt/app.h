@@ -7,7 +7,7 @@
 
 namespace ZFqt
 {
-	class ZFqt_Export App
+	class ZFqt_API App
 	{
 	public:
 		App();

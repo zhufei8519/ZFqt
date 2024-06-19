@@ -22,12 +22,14 @@ HEADERS += \
 	$$PWD/../../include/ZFqt/app.h \
 	$$PWD/../../include/ZFqt/db_app_base.h \
 	$$PWD/../../include/ZFqt/locale.h \
-	$$PWD/../../include/ZFqt/threaded/log.h
+	$$PWD/../../include/ZFqt/threaded/log.h \
+	$$PWD/../../include/ZFqt/dlgs.h
 
 SOURCES += \
 	$$PWD/common.cpp \
 	$$PWD/app.cpp \
 	$$PWD/db_app_base.cpp \
 	$$PWD/locale.cpp \
-	$$PWD/threaded/log.cpp
+	$$PWD/threaded/log.cpp \
+	$$PWD/dlgs.cpp
 
