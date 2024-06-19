@@ -1,15 +1,93 @@
 
 #include "ZFqt/dlgs.h"
 #include "ZFqt/locale.h"
+
+#include <QDialog>
+#include <QGridLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+
 #include <QMessageBox>
+
+class DlgInput: public QDialog
+{
+	//Q_OBJECT
+
+public:
+	DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems);
+
+	QString	GetValue(int nIndex);
+
+protected:
+	QPushButton*	m_pPushButton_Ok;
+	QPushButton*	m_pPushButton_Cancel;
+
+	std::vector< QLineEdit* >	m_vecLineEdits;
+};
+
+DlgInput::DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems)
+	:QDialog(nullptr)
+{
+	this->setWindowTitle(qstrTitle);
+
+	QGridLayout*	pGridLayout_Main	=	new QGridLayout();
+	this->setLayout(pGridLayout_Main);
+
+	int	nCntItems	=	(int)vecNVItems.size();
+	for (int i=0; i<nCntItems; ++i)
+	{
+		QLabel*		pLabel_Name = new QLabel(vecNVItems[i].qstrName);
+		QLineEdit*	pLineEdit_Value = new QLineEdit(vecNVItems[i].qstrValue);
+		if (vecNVItems[i].bIsPassword)
+			pLineEdit_Value->setEchoMode(QLineEdit::Password);
+
+		pGridLayout_Main->addWidget(pLabel_Name, i, 0);
+		pGridLayout_Main->addWidget(pLineEdit_Value, i, 1);
+
+		this->m_vecLineEdits.push_back(pLineEdit_Value);
+	}
+
+	this->m_pPushButton_Ok		=	new QPushButton(ZFqt_T("Ok"));
+	this->m_pPushButton_Cancel	=	new QPushButton(ZFqt_T("Cancel"));
+	pGridLayout_Main->addWidget(this->m_pPushButton_Ok, nCntItems, 1);
+	pGridLayout_Main->addWidget(this->m_pPushButton_Cancel, nCntItems, 0);
+
+	connect(this->m_pPushButton_Ok, &QPushButton::clicked, this, &QDialog::accept);
+	connect(this->m_pPushButton_Cancel, &QPushButton::clicked, this, &QDialog::reject);
+}
+
+QString	DlgInput::GetValue(int nIndex)
+{
+	if ((nIndex < 0) || (nIndex >= this->m_vecLineEdits.size()))
+	{
+		return "";
+	}
+
+	return this->m_vecLineEdits[nIndex]->text();
+}
 
 int32_t ZFqt::GetInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems)
 {
-    int32_t nErrno  =   ZFqt::E_Errno_ERR_GENERAL;
+	int	nCntItems = (int)vecNVItems.size();
 
-    //TODO
+	if (nCntItems <= 0)
+	{
+		return ZFqt::E_Errno_ERR_INVALID_PARAMS;
+	}
 
-    return nErrno;
+	DlgInput	dlgInput(qstrTitle, vecNVItems);
+	if (dlgInput.exec() != QDialog::Accepted)
+	{
+		return ZFqt::E_Errno_ERR_GENERAL;
+	}
+
+	for (int i = 0; i < nCntItems; ++i)
+	{
+		vecNVItems[i].qstrValue = dlgInput.GetValue(i);
+	}
+
+	return ZFqt::E_Errno_SUCCESS;
 }
 
 		// Yes - ZFqt::E_Errno_SUCCESS, No - else
