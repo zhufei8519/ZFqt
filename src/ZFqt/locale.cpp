@@ -496,6 +496,13 @@ void	ZFqt::Locale::OnLoacleChanged()
 		iterMapLocales_DockWidget->first->setWindowTitle(ZFqt_T(iterMapLocales_DockWidget->second));
 	}
 
+	// TreeWidgetItem
+	std::map< QTreeWidgetItem*, const char* >::iterator	iterMapLocales_TreeWidgetItem;
+	for (iterMapLocales_TreeWidgetItem = this->m_mapLocales_TreeWidgetItem.begin(); iterMapLocales_TreeWidgetItem != this->m_mapLocales_TreeWidgetItem.end(); ++iterMapLocales_TreeWidgetItem)
+	{
+		iterMapLocales_TreeWidgetItem->first->setText(0, ZFqt_T(iterMapLocales_TreeWidgetItem->second));
+	}
+
 	// TabPage
 	std::multimap< QTabWidget*, ZFqt::TTabHeaderLocaleInfo >::iterator	iterMapLocales_TabPage;
 	for (iterMapLocales_TabPage = this->m_multimapLocales_TabPage.begin(); iterMapLocales_TabPage != this->m_multimapLocales_TabPage.end(); ++iterMapLocales_TabPage)
