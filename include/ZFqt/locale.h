@@ -8,6 +8,7 @@ class QAction;
 class QToolButton;
 class QDockWidget;
 class QTabWidget;
+class QTreeWidgetItem;
 
 namespace ZFqt
 {
@@ -54,12 +55,14 @@ namespace ZFqt
 		void	OnMenuItemCreated(QAction* pMenuItem, const char* pstrLabel_en_US);
 		void	OnToolButtonCreated(QToolButton* pToolButton, const char* pstrLabel_en_US);
 		void	OnDockWidgetCreated(QDockWidget* pDockWidget, const char* pstrLabel_en_US);
+		void	OnTreeWidgetItemCreated(QTreeWidgetItem* pTreeWidgetItem, const char* pstrLabel_en_US);
 		void	OnTabPageCreated(QTabWidget* pTabWidget, int nIndex, const char* pstrLabel_en_US);
 
 		void	OnMenuUpdated(QMenu* pMenu, const char* pstrLabel_en_US);
 		void	OnMenuItemUpdated(QAction* pMenuItem, const char* pstrLabel_en_US);
 		void	OnToolButtonUpdated(QToolButton* pToolButton, const char* pstrLabel_en_US);
 		void	OnDockWidgetUpdated(QDockWidget* pDockWidget, const char* pstrLabel_en_US);
+		void	OnTreeWidgetItemUpdated(QTreeWidgetItem* pTreeWidgetItem, const char* pstrLabel_en_US);
 		void	OnTabPageUpdated(QTabWidget* pTabWidget, int nIndex, const char* pstrLabel_en_US);
 
 	protected:
@@ -72,10 +75,11 @@ namespace ZFqt
 	protected:
 		QString	m_qstrCurLocale;
 
-		std::map< QMenu*, const char* >			m_mapLocales_Menu;
-		std::map< QAction*, const char* >		m_mapLocales_MenuItem;
-		std::map< QToolButton*, const char* >	m_mapLocales_ToolButton;
-		std::map< QDockWidget*, const char* >	m_mapLocales_DockWidget;
+		std::map< QMenu*, const char* >				m_mapLocales_Menu;
+		std::map< QAction*, const char* >			m_mapLocales_MenuItem;
+		std::map< QToolButton*, const char* >		m_mapLocales_ToolButton;
+		std::map< QDockWidget*, const char* >		m_mapLocales_DockWidget;
+		std::map< QTreeWidgetItem*, const char* >	m_mapLocales_TreeWidgetItem;
 		std::multimap< QTabWidget*, ZFqt::TTabHeaderLocaleInfo >	m_multimapLocales_TabPage;
 
 	public:

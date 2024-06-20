@@ -16,6 +16,7 @@
 #include <QAction>
 #include <QToolButton>
 #include <QDockWidget>
+#include <QTreeWidget>
 #include <QTabWidget>
 
 ZFqt::Locale*	ZFqt::Locale::m_spInstance	=	NULL;
@@ -523,6 +524,11 @@ void	ZFqt::Locale::OnDockWidgetCreated(QDockWidget* pDockWidget, const char* pst
 	this->m_mapLocales_DockWidget.insert(std::make_pair(pDockWidget, pstrLabel_en_US));
 }
 
+void	ZFqt::Locale::OnTreeWidgetItemCreated(QTreeWidgetItem* pTreeWidgetItem, const char* pstrLabel_en_US)
+{
+	this->m_mapLocales_TreeWidgetItem.insert(std::make_pair(pTreeWidgetItem, pstrLabel_en_US));
+}
+
 void	ZFqt::Locale::OnTabPageCreated(QTabWidget* pTabWidget, int nIndex, const char* pstrLabel_en_US)
 {
 	ZFqt::TTabHeaderLocaleInfo	tabHeaderLocalInfo(pTabWidget, nIndex, pstrLabel_en_US);
@@ -582,6 +588,20 @@ void	ZFqt::Locale::OnDockWidgetUpdated(QDockWidget* pDockWidget, const char* pst
 	else
 	{
 		this->m_mapLocales_DockWidget.insert(std::make_pair(pDockWidget, pstrLabel_en_US));
+	}
+}
+
+void	ZFqt::Locale::OnTreeWidgetItemUpdated(QTreeWidgetItem* pTreeWidgetItem, const char* pstrLabel_en_US)
+{
+	std::map< QTreeWidgetItem*, const char* >::iterator	iterMapLocales_TreeWidgetItem	=
+		this->m_mapLocales_TreeWidgetItem.find(pTreeWidgetItem);
+	if (iterMapLocales_TreeWidgetItem != this->m_mapLocales_TreeWidgetItem.end())
+	{
+		iterMapLocales_TreeWidgetItem->second = pstrLabel_en_US;
+	}
+	else
+	{
+		this->m_mapLocales_TreeWidgetItem.insert(std::make_pair(pTreeWidgetItem, pstrLabel_en_US));
 	}
 }
 
