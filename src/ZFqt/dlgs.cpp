@@ -10,23 +10,29 @@
 
 #include <QMessageBox>
 
-class DlgInput: public QDialog
+namespace ZFqt
 {
-	//Q_OBJECT
+	namespace Dlgs
+	{
+		class DlgInput : public QDialog
+		{
+			//Q_OBJECT
 
-public:
-	DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems);
+		public:
+			DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems);
 
-	QString	GetValue(int nIndex);
+			QString	GetValue(int nIndex);
 
-protected:
-	QPushButton*	m_pPushButton_Ok;
-	QPushButton*	m_pPushButton_Cancel;
+		protected:
+			QPushButton* m_pPushButton_Ok;
+			QPushButton* m_pPushButton_Cancel;
 
-	std::vector< QLineEdit* >	m_vecLineEdits;
+			std::vector< QLineEdit* >	m_vecLineEdits;
+		};
+	};
 };
 
-DlgInput::DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems)
+ZFqt::Dlgs::DlgInput::DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems)
 	:QDialog(nullptr)
 {
 	this->setWindowTitle(qstrTitle);
@@ -57,7 +63,7 @@ DlgInput::DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems)
 	connect(this->m_pPushButton_Cancel, &QPushButton::clicked, this, &QDialog::reject);
 }
 
-QString	DlgInput::GetValue(int nIndex)
+QString	ZFqt::Dlgs::DlgInput::GetValue(int nIndex)
 {
 	if ((nIndex < 0) || (nIndex >= this->m_vecLineEdits.size()))
 	{
@@ -67,7 +73,7 @@ QString	DlgInput::GetValue(int nIndex)
 	return this->m_vecLineEdits[nIndex]->text();
 }
 
-int32_t ZFqt::GetInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems)
+int32_t ZFqt::Dlgs::GetInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems)
 {
 	int	nCntItems = (int)vecNVItems.size();
 
@@ -76,7 +82,7 @@ int32_t ZFqt::GetInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems)
 		return ZFqt::E_Errno_ERR_INVALID_PARAMS;
 	}
 
-	DlgInput	dlgInput(qstrTitle, vecNVItems);
+	ZFqt::Dlgs::DlgInput	dlgInput(qstrTitle, vecNVItems);
 	if (dlgInput.exec() != QDialog::Accepted)
 	{
 		return ZFqt::E_Errno_ERR_GENERAL;
@@ -91,7 +97,7 @@ int32_t ZFqt::GetInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems)
 }
 
 		// Yes - ZFqt::E_Errno_SUCCESS, No - else
-void	ZFqt::ShowInformationMsgBox(const QString& qstrTitle, const QString& qstrMsg)
+void	ZFqt::Dlgs::ShowInformationMsgBox(const QString& qstrTitle, const QString& qstrMsg)
 {
 	QMessageBox	msgBoxInfo(QMessageBox::Information, qstrTitle, qstrMsg, QMessageBox::Ok);
 	msgBoxInfo.setButtonText(QMessageBox::Ok, ZFqt_T("Ok"));
@@ -99,7 +105,7 @@ void	ZFqt::ShowInformationMsgBox(const QString& qstrTitle, const QString& qstrMs
 	msgBoxInfo.exec();
 }
 
-void	ZFqt::ShowWarningMsgBox(const QString& qstrTitle, const QString& qstrMsg)
+void	ZFqt::Dlgs::ShowWarningMsgBox(const QString& qstrTitle, const QString& qstrMsg)
 {
 	QMessageBox	msgBoxWarning(QMessageBox::Warning, qstrTitle, qstrMsg, QMessageBox::Ok);
 	msgBoxWarning.setButtonText(QMessageBox::Ok, ZFqt_T("Ok"));
@@ -107,7 +113,7 @@ void	ZFqt::ShowWarningMsgBox(const QString& qstrTitle, const QString& qstrMsg)
 	msgBoxWarning.exec();
 }
 
-void	ZFqt::ShowCriticalMsgBox(const QString& qstrTitle, const QString& qstrMsg)
+void	ZFqt::Dlgs::ShowCriticalMsgBox(const QString& qstrTitle, const QString& qstrMsg)
 {
 	QMessageBox	msgBoxWarning(QMessageBox::Critical, qstrTitle, qstrMsg, QMessageBox::Ok);
 	msgBoxWarning.setButtonText(QMessageBox::Ok, ZFqt_T("Ok"));
@@ -116,7 +122,7 @@ void	ZFqt::ShowCriticalMsgBox(const QString& qstrTitle, const QString& qstrMsg)
 }
 
 		// Yes - 0, No - else
-int		ZFqt::ExecQuestionMsgBox(const QString& qstrTitle, const QString& qstrMsg)
+int		ZFqt::Dlgs::ExecQuestionMsgBox(const QString& qstrTitle, const QString& qstrMsg)
 {
 	QMessageBox	msgBoxQuestion(QMessageBox::Question, qstrTitle, qstrMsg, QMessageBox::Yes | QMessageBox::No);
 	msgBoxQuestion.setButtonText(QMessageBox::Yes, ZFqt_T("Yes"));
