@@ -24,8 +24,8 @@ namespace ZFqt
 			QString	GetValue(int nIndex);
 
 		protected:
-			QPushButton* m_pPushButton_Ok;
-			QPushButton* m_pPushButton_Cancel;
+			QPushButton*	m_pPushButton_Ok;
+			QPushButton*	m_pPushButton_Cancel;
 
 			std::vector< QLineEdit* >	m_vecLineEdits;
 		};
