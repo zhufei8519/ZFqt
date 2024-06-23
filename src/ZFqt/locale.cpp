@@ -84,7 +84,7 @@ int32_t	ZFqt::Locale::Open(const QString& qstrDBHome, const QString& qstrDBName,
 			QString	qstrFilePathLocale_pdsi	=	ZFqt::App::Instance()->GetAppHome() + QDir::separator() + qstrDataSourceDir + QDir::separator() + "locale" + QDir::separator() + "locale.pdsi." + this->m_qstrCurLocale + ".xml";
 			if (QFile::exists(qstrFilePathLocale_pdsi))
 			{
-				this->ImportLocale(qstrFilePathLocale_pdsi);
+				this->ImportLocale(qstrFilePathLocale_pdsi, false);
 			}
 		}
 
@@ -347,7 +347,7 @@ bool	ZFqt::Locale::GenerateLocaleTemplate(const QString& qstrFilePathLocale)
 	return true;
 }
 
-QString	ZFqt::Locale::ImportLocale(const QString& qstrFilePathLocale)
+QString	ZFqt::Locale::ImportLocale(const QString& qstrFilePathLocale, bool bTruncate)
 {
 	// check parameters
 	if (qstrFilePathLocale.isEmpty())
@@ -433,7 +433,7 @@ QString	ZFqt::Locale::ImportLocale(const QString& qstrFilePathLocale)
 			break;
 		}
 
-		if (this->PersistenceLocale(qstrLocaleName, qstrLocaleValue, mapLocaleStrings) != ZFqt::E_Errno_SUCCESS)
+		if (this->PersistenceLocale(qstrLocaleName, qstrLocaleValue, mapLocaleStrings, bTruncate) != ZFqt::E_Errno_SUCCESS)
 		{
 			ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Error,
 				"ZFqt::Locale::ImportLocale(\"%s\") failed: failed on persistence !!!\n",
@@ -731,19 +731,35 @@ int32_t	ZFqt::Locale::OpenTableLocale(const QString& qstrLocale, bool bTruncate)
 }
 
 int32_t	ZFqt::Locale::PersistenceLocale(const QString& qstrLocaleName, const QString& qstrLocaleValue,
-	const std::map< QString, QString >& mapLocaleStrings)
+	std::map< QString, QString >& mapLocaleStrings, bool bTruncate)
 {
 	int32_t	nErrno	=	ZFqt::E_Errno_ERR_GENERAL;
 
 	for (int32_t iOnce = 0; iOnce < 1; ++iOnce)
 	{
-		nErrno	=	this->OpenTableLocale(qstrLocaleName, true);
+		nErrno	=	this->OpenTableLocale(qstrLocaleName, bTruncate);
 		if (nErrno != ZFqt::E_Errno_SUCCESS)
 		{
 			break;
 		}
 
 		QSqlDatabase	dbLocale = QSqlDatabase::database(this->m_qstrDBName);
+
+		if (!bTruncate)
+		{
+			QString	qstrStmtList	=
+				QString("SELECT name, value FROM tbl_") + qstrLocaleName;
+			QSqlQuery	queryList(dbLocale);
+			if (queryList.exec(qstrStmtList))
+			{
+				while (queryList.next())
+				{
+					mapLocaleStrings.insert(std::make_pair(queryList.value(0).toString(), queryList.value(1).toString()));
+				}
+			}
+
+			this->OpenTableLocale(qstrLocaleName, true);
+		}
 
 		// save locale strings to DB
 		// {

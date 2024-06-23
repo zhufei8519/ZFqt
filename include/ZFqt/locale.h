@@ -45,7 +45,7 @@ namespace ZFqt
 		bool	SetCurLocale(const QString& qstrCurLocale);
 
 		bool	GenerateLocaleTemplate(const QString& qstrFilePathLocale);
-		QString	ImportLocale(const QString& qstrFilePathLocale);
+		QString	ImportLocale(const QString& qstrFilePathLocale, bool bTruncate = true);
 
 		static	QString	GetSystemLocale();
 
@@ -70,7 +70,7 @@ namespace ZFqt
 		int32_t	OpenTableLocale(const QString& qstrLocale, bool bTruncate = false);
 
 		int32_t	PersistenceLocale(const QString& qstrLocaleName, const QString& qstrLocaleValue,
-			const std::map< QString, QString >& mapLocaleStrings);
+			std::map< QString, QString >& mapLocaleStrings, bool bTruncate);
 
 	protected:
 		QString	m_qstrCurLocale;
