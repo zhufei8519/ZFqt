@@ -20,6 +20,7 @@ namespace ZFqt
 
 		public:
 			DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNVItems);
+			virtual ~DlgInput();
 
 			QString	GetValue(int nIndex);
 
@@ -61,6 +62,12 @@ ZFqt::Dlgs::DlgInput::DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNV
 
 	connect(this->m_pPushButton_Ok, &QPushButton::clicked, this, &QDialog::accept);
 	connect(this->m_pPushButton_Cancel, &QPushButton::clicked, this, &QDialog::reject);
+}
+
+ZFqt::Dlgs::DlgInput::~DlgInput()
+{
+	disconnect(this->m_pPushButton_Ok, &QPushButton::clicked, this, &QDialog::accept);
+	disconnect(this->m_pPushButton_Cancel, &QPushButton::clicked, this, &QDialog::reject);
 }
 
 QString	ZFqt::Dlgs::DlgInput::GetValue(int nIndex)
