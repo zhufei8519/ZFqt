@@ -93,6 +93,42 @@ namespace ZFqt
 
 #define	ZFqt_T(x)	ZFqt::Locale::Instance()->GetLocaleString(x)
 
+#define ZFqt_OpLogBegin(pstrOpCmd) \
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info, \
+			"%s [\"%s\"] %s%s\n", \
+			ZFqt_T("execute command").toStdString().c_str(), \
+			ZFqt_T(pstrOpCmd).toStdString().c_str(), \
+			ZFqt_T("begin").toStdString().c_str(), \
+			ZFqt_T("...").toStdString().c_str());
+
+#define ZFqt_OpLogSuccess(pstrOpCmd) \
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Info, \
+			"%s [\"%s\"] %s%s%s[%s]%s\n", \
+			ZFqt_T("execute command").toStdString().c_str(), \
+			ZFqt_T(pstrOpCmd).toStdString().c_str(), \
+			ZFqt_T("finished").toStdString().c_str(), \
+			ZFqt_T(":").toStdString().c_str(), \
+			ZFqt_T("result").toStdString().c_str(), \
+			ZFqt_T("successfully").toStdString().c_str(), \
+			ZFqt_T(".").toStdString().c_str());
+
+#define	ZFqt_OpLogFailed(pstrOpCmd, nErrno, qstrErrMsg) \
+		ZFqt::LogMgr::Instance()->Log(NULL, ZFqt_Log_Header_Info, ZFqt::E_LogLevel_Warn, \
+			"%s [\"%s\"] %s%s%s[%s]%s%s[%d]%s%s[\"%s\"]%s\n", \
+			ZFqt_T("execute command").toStdString().c_str(), \
+			ZFqt_T(pstrOpCmd).toStdString().c_str(), \
+			ZFqt_T("finished").toStdString().c_str(), \
+			ZFqt_T(":").toStdString().c_str(), \
+			ZFqt_T("result").toStdString().c_str(), \
+			ZFqt_T("failed").toStdString().c_str(), \
+			ZFqt_T(",").toStdString().c_str(), \
+			ZFqt_T("errno").toStdString().c_str(), \
+			nErrno, \
+			ZFqt_T(",").toStdString().c_str(), \
+			ZFqt_T("error message").toStdString().c_str(), \
+			ZFqt_T(qstrErrMsg).toStdString().c_str(), \
+			ZFqt_T("!!!").toStdString().c_str());
+
 inline
 ZFqt::Locale*	ZFqt::Locale::Instance()
 {
