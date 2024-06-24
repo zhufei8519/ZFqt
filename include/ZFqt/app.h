@@ -5,6 +5,7 @@
 #include "ZFqt/types.h"
 #include <map>
 
+class QMainWindow;
 namespace ZFqt
 {
 	class ZFqt_API App
@@ -36,6 +37,9 @@ namespace ZFqt
 		QString	GetAppGroupDataHome() const;
 		QString	GetAppDataHome() const;
 
+		void	SetMainWindow(QMainWindow* pMainWindow)	{ this->m_pMainWindow = pMainWindow; }
+		QMainWindow*	GetMainWindow() const			{ return this->m_pMainWindow; }
+
 	private:
 		QString	m_qstrAppGroupName;
 		QString	m_qstrAppName;
@@ -47,6 +51,8 @@ namespace ZFqt
 		QString	m_qstrVendorEmail;
 
 		std::map< QString, QString >	m_mapSettings;
+
+		QMainWindow*	m_pMainWindow;
 
 	public:
 		static App*	Instance();
