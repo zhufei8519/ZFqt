@@ -41,14 +41,14 @@ ZFqt::Dlgs::DlgInput::DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNV
 {
 	this->setWindowTitle(qstrTitle);
 
-	QGridLayout*	pGridLayout_Main	=	new QGridLayout();
+	QGridLayout*	pGridLayout_Main	=	new QGridLayout(this);
 	this->setLayout(pGridLayout_Main);
 
 	int	nCntItems	=	(int)vecNVItems.size();
 	for (int i=0; i<nCntItems; ++i)
 	{
-		QLabel*		pLabel_Name = new QLabel(vecNVItems[i].qstrName);
-		QLineEdit*	pLineEdit_Value = new QLineEdit(vecNVItems[i].qstrValue);
+		QLabel*		pLabel_Name = new QLabel(vecNVItems[i].qstrName, this);
+		QLineEdit*	pLineEdit_Value = new QLineEdit(vecNVItems[i].qstrValue, this);
 		if (vecNVItems[i].bIsPassword)
 			pLineEdit_Value->setEchoMode(QLineEdit::Password);
 
@@ -58,8 +58,8 @@ ZFqt::Dlgs::DlgInput::DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNV
 		this->m_vecLineEdits.push_back(pLineEdit_Value);
 	}
 
-	this->m_pPushButton_Ok		=	new QPushButton(ZFqt_T("Ok"));
-	this->m_pPushButton_Cancel	=	new QPushButton(ZFqt_T("Cancel"));
+	this->m_pPushButton_Ok		=	new QPushButton(ZFqt_T("Ok"), this);
+	this->m_pPushButton_Cancel	=	new QPushButton(ZFqt_T("Cancel"), this);
 	pGridLayout_Main->addWidget(this->m_pPushButton_Ok, nCntItems, 1);
 	pGridLayout_Main->addWidget(this->m_pPushButton_Cancel, nCntItems, 0);
 
@@ -163,7 +163,7 @@ ZFqt::Dlgs::DlgLogin::DlgLogin(const ZFqt_TVecLoginInfos& vecLoginInfos, const Q
 {
 	this->setWindowTitle(ZFqt_T("User Login"));
 
-	QGridLayout*	pGridLayout_Main	=	new QGridLayout();
+	QGridLayout*	pGridLayout_Main	=	new QGridLayout(this);
 	this->setLayout(pGridLayout_Main);
 
 	int	nLineNo	=	0;
