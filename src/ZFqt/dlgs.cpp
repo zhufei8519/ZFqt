@@ -215,6 +215,8 @@ ZFqt::Dlgs::DlgLogin::DlgLogin(const ZFqt_TVecLoginInfos& vecLoginInfos, const Q
 
 	this->m_pLineEdit_Password->setEchoMode(QLineEdit::QLineEdit::Password);
 
+	this->m_pCheckBox_SaveAccount->setCheckState(Qt::Checked);
+
 	connect(this->m_pComboBox_Account, SIGNAL(editTextChanged(const QString&)), this, SLOT(slot_OnComboBoxTextChanged_Account(const QString&)));
 	connect(this->m_pCheckBox_SaveAccount, SIGNAL(stateChanged(int)), this, SLOT(slot_OnCheckBoxStateChanged_SaveAccount(int)));
 	connect(this->m_pCheckBox_SavePassword, SIGNAL(stateChanged(int)), this, SLOT(slot_OnCheckBoxStateChanged_SavePassword(int)));
@@ -227,6 +229,7 @@ ZFqt::Dlgs::DlgLogin::DlgLogin(const ZFqt_TVecLoginInfos& vecLoginInfos, const Q
 
 	// prepare last logon data
 	this->m_pComboBox_Account->setCurrentText(qstrLastLogonAccount);
+	emit this->m_pComboBox_Account->editTextChanged(qstrLastLogonAccount);
 }
 
 ZFqt::Dlgs::DlgLogin::~DlgLogin()
