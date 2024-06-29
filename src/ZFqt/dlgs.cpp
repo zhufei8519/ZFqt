@@ -194,8 +194,8 @@ ZFqt::Dlgs::DlgLogin::DlgLogin(const ZFqt_TVecLoginInfos& vecLoginInfos, const Q
 
 	this->m_pPushButton_Login	=	new QPushButton(ZFqt_T("Login"), this);
 	this->m_pPushButton_Cancel	=	new QPushButton(ZFqt_T("Cancel"), this);
-	pGridLayout_Main->addWidget(this->m_pPushButton_Login, nLineNo, 1);
-	pGridLayout_Main->addWidget(this->m_pPushButton_Cancel, nLineNo, 2);
+	pGridLayout_Main->addWidget(this->m_pPushButton_Login, nLineNo, 2);
+	pGridLayout_Main->addWidget(this->m_pPushButton_Cancel, nLineNo, 1);
 	++ nLineNo;
 
 	// prepare data
