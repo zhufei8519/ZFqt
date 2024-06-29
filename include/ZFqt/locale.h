@@ -49,7 +49,7 @@ namespace ZFqt
 
 		static	QString	GetSystemLocale();
 
-		void	OnLoacleChanged();
+		void	OnLocaleChanged();
 
 		void	OnMenuCreated(QMenu* pMenu, const char* pstrLabel_en_US);
 		void	OnMenuItemCreated(QAction* pMenuItem, const char* pstrLabel_en_US);

@@ -2,6 +2,8 @@
 #ifndef ZFqt_EXPORT_H
 #define ZFqt_EXPORT_H
 
+#include <QObject>
+
 #ifdef ZFqt_BUILD_DLL
 #	define ZFqt_API	Q_DECL_EXPORT
 #else //!ZFqt_BUILD_DLL

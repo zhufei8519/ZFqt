@@ -262,7 +262,8 @@ bool	ZFqt::Locale::SetCurLocale(const QString& qstrCurLocale)
 	this->SetCfgItem("CUR_LOCALE", this->m_qstrCurLocale);
 	this->OpenTableLocale(this->m_qstrCurLocale);
 
-	this->OnLoacleChanged();
+	this->OnLocaleChanged();
+	emit ZFqt::EventMgr::Instance()->signal_OnLocaleChanged(qstrCurLocale);
 
 	return true;
 }
@@ -473,7 +474,7 @@ QString	ZFqt::Locale::GetSystemLocale()
 	return qstrLangSys;
 }
 
-void	ZFqt::Locale::OnLoacleChanged()
+void	ZFqt::Locale::OnLocaleChanged()
 {
 	// Menu
 	std::map< QMenu*, const char* >::iterator	iterMapLocales_Menu;

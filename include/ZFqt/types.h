@@ -9,6 +9,7 @@
 #include "ZFqt/errno.h"
 #include "ZFqt/consts.h"
 #include "ZFqt/export.h"
+#include "ZFqt/event.h"
 
 #include <QObject>
 #include <QThread>

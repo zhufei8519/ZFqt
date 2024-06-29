@@ -17,6 +17,7 @@ HEADERS += \
 	$$PWD/../../include/ZFqt/errno.h \
 	$$PWD/../../include/ZFqt/consts.h \
 	$$PWD/../../include/ZFqt/export.h \
+	$$PWD/../../include/ZFqt/event.h \
 	$$PWD/../../include/ZFqt/types.h \
 	$$PWD/../../include/ZFqt/common.h \
 	$$PWD/../../include/ZFqt/app.h \
@@ -26,6 +27,7 @@ HEADERS += \
 	$$PWD/../../include/ZFqt/dlgs.h
 
 SOURCES += \
+	$$PWD/event.cpp \
 	$$PWD/common.cpp \
 	$$PWD/app.cpp \
 	$$PWD/db_app_base.cpp \
