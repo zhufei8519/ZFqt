@@ -7,6 +7,8 @@
 
 namespace ZFqt
 {
+    ZFqt_API void   PostQuitEvent(bool bNeedConfirm = false);
+
     class ZFqt_API EventMgr: public QObject
     {
         Q_OBJECT
@@ -16,6 +18,8 @@ namespace ZFqt
         virtual ~EventMgr() {}
 
     signals:
+        void    signal_Quit(bool);
+
         void    signal_OnLocaleChanged(QString);
 
     public:

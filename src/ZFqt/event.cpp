@@ -1,5 +1,10 @@
 
 #include "ZFqt/event.h"
 
-ZFqt::EventMgr* ZFqt::EventMgr::m_spInstance    =   NULL;
+void    ZFqt::PostQuitEvent(bool bNeedConfirm)
+{
+    emit ZFqt::EventMgr::Instance()->signal_Quit(bNeedConfirm);
+}
+
+ZFqt::EventMgr* ZFqt::EventMgr::m_spInstance = NULL;
 
