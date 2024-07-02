@@ -198,6 +198,8 @@ ZFqt::Dlgs::DlgLogin::DlgLogin(const ZFqt_TVecLoginInfos& vecLoginInfos, const Q
 	pGridLayout_Main->addWidget(this->m_pPushButton_Cancel, nLineNo, 1);
 	++ nLineNo;
 
+	this->m_pPushButton_Login->setDefault(true);
+
 	// prepare data
 	QStringList	qslLogonAccounts;
 	ZFqt_TVecLoginInfos::const_iterator	iterVecLoginInfos;
