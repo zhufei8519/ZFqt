@@ -229,6 +229,11 @@ ZFqt::Dlgs::DlgLogin::DlgLogin(const ZFqt_TVecLoginInfos& vecLoginInfos, const Q
 	connect(this->m_pPushButton_Login, &QPushButton::clicked, this, &ZFqt::Dlgs::DlgLogin::slot_OnPushButtonClicked_Login);
 	connect(this->m_pPushButton_Cancel, &QPushButton::clicked, this, &ZFqt::Dlgs::DlgLogin::slot_onPushButtonClicked_Cancel);
 
+	if (!qstrLastLogonAccount.isEmpty())
+	{
+		this->m_pLineEdit_Password->setFocus();
+	}
+
 	// prepare last logon data
 	this->m_pComboBox_Account->setCurrentText(qstrLastLogonAccount);
 	emit this->m_pComboBox_Account->editTextChanged(qstrLastLogonAccount);
