@@ -51,6 +51,10 @@ ZFqt::Dlgs::DlgInput::DlgInput(const QString& qstrTitle, ZFqt_TVecNVItems& vecNV
 		QLineEdit*	pLineEdit_Value = new QLineEdit(vecNVItems[i].qstrValue, this);
 		if (vecNVItems[i].bIsPassword)
 			pLineEdit_Value->setEchoMode(QLineEdit::Password);
+		if (vecNVItems[i].bIsReadOnly)
+		{
+			pLineEdit_Value->setReadOnly(true);
+		}
 
 		pGridLayout_Main->addWidget(pLabel_Name, i, 0);
 		pGridLayout_Main->addWidget(pLineEdit_Value, i, 1);

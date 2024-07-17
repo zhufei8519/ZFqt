@@ -37,16 +37,25 @@ namespace ZFqt
         QString qstrName;
         QString qstrValue;
         bool    bIsPassword;
+        bool    bIsReadOnly;
 
         NVItem()
             :bIsPassword(false)
         {}
-        NVItem(const QString& qstrNameParam, const QString& qstrValueParam, bool bIsPasswordParam = false)
-            :qstrName(qstrNameParam), qstrValue(qstrValueParam), bIsPassword(bIsPasswordParam)
+        NVItem(const QString& qstrNameParam, const QString& qstrValueParam, bool bIsPasswordParam = false, bool bIsReadOnlyParam = false)
+            :qstrName(qstrNameParam), qstrValue(qstrValueParam), bIsPassword(bIsPasswordParam), bIsReadOnly(bIsReadOnlyParam)
         {}
         NVItem(const NVItem& rhs)
-            :qstrName(rhs.qstrName), qstrValue(rhs.qstrValue), bIsPassword(rhs.bIsPassword)
+            :qstrName(rhs.qstrName), qstrValue(rhs.qstrValue), bIsPassword(rhs.bIsPassword), bIsReadOnly(rhs.bIsReadOnly)
         {}
+
+        void    Clear()
+        {
+            qstrName.clear();
+            qstrValue.clear();
+            bIsPassword =   false;
+            bIsReadOnly =   false;
+        }
     };
 
     struct TCachedLoginInfo
