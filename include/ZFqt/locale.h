@@ -3,6 +3,8 @@
 #define ZFqt_LOCALE_H
 
 #include "ZFqt/db_app_base.h"
+
+class QLabel;
 class QMenu;
 class QAction;
 class QToolButton;
@@ -51,6 +53,7 @@ namespace ZFqt
 
 		void	OnLocaleChanged();
 
+		void	OnLabelCreated(QLabel* pLabel, const char* pstrLabel_en_US);
 		void	OnMenuCreated(QMenu* pMenu, const char* pstrLabel_en_US);
 		void	OnMenuItemCreated(QAction* pMenuItem, const char* pstrLabel_en_US);
 		void	OnToolButtonCreated(QToolButton* pToolButton, const char* pstrLabel_en_US);
@@ -58,6 +61,7 @@ namespace ZFqt
 		void	OnTreeWidgetItemCreated(QTreeWidgetItem* pTreeWidgetItem, const char* pstrLabel_en_US);
 		void	OnTabPageCreated(QTabWidget* pTabWidget, int nIndex, const char* pstrLabel_en_US);
 
+		void	OnLabelUpdated(QLabel* pLabel, const char* pstrLabel_en_US);
 		void	OnMenuUpdated(QMenu* pMenu, const char* pstrLabel_en_US);
 		void	OnMenuItemUpdated(QAction* pMenuItem, const char* pstrLabel_en_US);
 		void	OnToolButtonUpdated(QToolButton* pToolButton, const char* pstrLabel_en_US);
@@ -75,6 +79,7 @@ namespace ZFqt
 	protected:
 		QString	m_qstrCurLocale;
 
+		std::map< QLabel*, const char* >			m_mapLocales_Label;
 		std::map< QMenu*, const char* >				m_mapLocales_Menu;
 		std::map< QAction*, const char* >			m_mapLocales_MenuItem;
 		std::map< QToolButton*, const char* >		m_mapLocales_ToolButton;

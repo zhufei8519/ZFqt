@@ -12,6 +12,7 @@
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
 
+#include <QLabel>
 #include <QMenu>
 #include <QAction>
 #include <QToolButton>
@@ -476,6 +477,13 @@ QString	ZFqt::Locale::GetSystemLocale()
 
 void	ZFqt::Locale::OnLocaleChanged()
 {
+	// Label
+	std::map< QLabel*, const char* >::iterator	iterMapLocales_Label;
+	for (iterMapLocales_Label = this->m_mapLocales_Label.begin(); iterMapLocales_Label != this->m_mapLocales_Label.end(); ++iterMapLocales_Label)
+	{
+		iterMapLocales_Label->first->setText(ZFqt_T(iterMapLocales_Label->second));
+	}
+
 	// Menu
 	std::map< QMenu*, const char* >::iterator	iterMapLocales_Menu;
 	for (iterMapLocales_Menu = this->m_mapLocales_Menu.begin(); iterMapLocales_Menu != this->m_mapLocales_Menu.end(); ++iterMapLocales_Menu)
@@ -519,6 +527,11 @@ void	ZFqt::Locale::OnLocaleChanged()
 	}
 }
 
+void	ZFqt::Locale::OnLabelCreated(QLabel* pLabel, const char* pstrLabel_en_US)
+{
+	this->m_mapLocales_Label.insert(std::make_pair(pLabel, pstrLabel_en_US));
+}
+
 void	ZFqt::Locale::OnMenuCreated(QMenu* pMenu, const char* pstrLabel_en_US)
 {
 	this->m_mapLocales_Menu.insert(std::make_pair(pMenu, pstrLabel_en_US));
@@ -548,6 +561,20 @@ void	ZFqt::Locale::OnTabPageCreated(QTabWidget* pTabWidget, int nIndex, const ch
 {
 	ZFqt::TTabHeaderLocaleInfo	tabHeaderLocalInfo(pTabWidget, nIndex, pstrLabel_en_US);
 	this->m_multimapLocales_TabPage.insert(std::make_pair(pTabWidget, tabHeaderLocalInfo));
+}
+
+void	ZFqt::Locale::OnLabelUpdated(QLabel* pLabel, const char* pstrLabel_en_US)
+{
+	std::map< QLabel*, const char* >::iterator	iterMapLocales_Label	=
+		this->m_mapLocales_Label.find(pLabel);
+	if (iterMapLocales_Label != this->m_mapLocales_Label.end())
+	{
+		iterMapLocales_Label->second	=	pstrLabel_en_US;
+	}
+	else
+	{
+		this->m_mapLocales_Label.insert(std::make_pair(pLabel, pstrLabel_en_US));
+	}
 }
 
 void	ZFqt::Locale::OnMenuUpdated(QMenu* pMenu, const char* pstrLabel_en_US)
