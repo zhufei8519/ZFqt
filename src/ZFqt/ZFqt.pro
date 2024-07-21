@@ -19,6 +19,7 @@ HEADERS += \
 	$$PWD/../../include/ZFqt/export.h \
 	$$PWD/../../include/ZFqt/event.h \
 	$$PWD/../../include/ZFqt/types.h \
+	$$PWD/../../include/ZFqt/tree_widget.h \
 	$$PWD/../../include/ZFqt/common.h \
 	$$PWD/../../include/ZFqt/app.h \
 	$$PWD/../../include/ZFqt/db_app_base.h \
