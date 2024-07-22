@@ -16,6 +16,8 @@
 #include <QMenu>
 #include <QAction>
 #include <QToolButton>
+#include <QPushButton>
+#include <QGroupBox>
 #include <QDockWidget>
 #include <QTreeWidget>
 #include <QTabWidget>
@@ -505,6 +507,20 @@ void	ZFqt::Locale::OnLocaleChanged()
 		iterMapLocales_ToolButton->first->setText(ZFqt_T(iterMapLocales_ToolButton->second));
 	}
 
+	// PushButton
+	std::map< QPushButton*, const char* >::iterator	iterMapLocales_PushButton;
+	for (iterMapLocales_PushButton = this->m_mapLocales_PushButton.begin(); iterMapLocales_PushButton != this->m_mapLocales_PushButton.end(); ++iterMapLocales_PushButton)
+	{
+		iterMapLocales_PushButton->first->setText(ZFqt_T(iterMapLocales_PushButton->second));
+	}
+
+	// GroupBox
+	std::map< QGroupBox*, const char* >::iterator	iterMapLocales_GroupBox;
+	for (iterMapLocales_GroupBox = this->m_mapLocales_GroupBox.begin(); iterMapLocales_GroupBox != this->m_mapLocales_GroupBox.end(); ++iterMapLocales_GroupBox)
+	{
+		iterMapLocales_GroupBox->first->setTitle(ZFqt_T(iterMapLocales_GroupBox->second));
+	}
+
 	// DockWidget
 	std::map< QDockWidget*, const char* >::iterator	iterMapLocales_DockWidget;
 	for (iterMapLocales_DockWidget = this->m_mapLocales_DockWidget.begin(); iterMapLocales_DockWidget != this->m_mapLocales_DockWidget.end(); ++iterMapLocales_DockWidget)
@@ -545,6 +561,16 @@ void	ZFqt::Locale::OnMenuItemCreated(QAction* pMenuItem, const char* pstrLabel_e
 void	ZFqt::Locale::OnToolButtonCreated(QToolButton* pToolButton, const char* pstrLabel_en_US)
 {
 	this->m_mapLocales_ToolButton.insert(std::make_pair(pToolButton, pstrLabel_en_US));
+}
+
+void	ZFqt::Locale::OnPushButtonCreated(QPushButton* pPushButton, const char* pstrLabel_en_US)
+{
+	this->m_mapLocales_PushButton.insert(std::make_pair(pPushButton, pstrLabel_en_US));
+}
+
+void	ZFqt::Locale::OnGroupBoxCreated(QGroupBox* pGroupBox, const char* pstrLabel_en_US)
+{
+	this->m_mapLocales_GroupBox.insert(std::make_pair(pGroupBox, pstrLabel_en_US));
 }
 
 void	ZFqt::Locale::OnDockWidgetCreated(QDockWidget* pDockWidget, const char* pstrLabel_en_US)
@@ -616,6 +642,34 @@ void	ZFqt::Locale::OnToolButtonUpdated(QToolButton* pToolButton, const char* pst
 	else
 	{
 		this->m_mapLocales_ToolButton.insert(std::make_pair(pToolButton, pstrLabel_en_US));
+	}
+}
+
+void	ZFqt::Locale::OnPushButtonUpdated(QPushButton* pPushButton, const char* pstrLabel_en_US)
+{
+	std::map< QPushButton*, const char* >::iterator	iterMapLocales_PushButton =
+		this->m_mapLocales_PushButton.find(pPushButton);
+	if (iterMapLocales_PushButton != this->m_mapLocales_PushButton.end())
+	{
+		iterMapLocales_PushButton->second	=	pstrLabel_en_US;
+	}
+	else
+	{
+		this->m_mapLocales_PushButton.insert(std::make_pair(pPushButton, pstrLabel_en_US));
+	}
+}
+
+void	ZFqt::Locale::OnGroupBoxUpdated(QGroupBox* pGroupBox, const char* pstrLabel_en_US)
+{
+	std::map< QGroupBox*, const char* >::iterator	iterMapLocales_GroupBox =
+		this->m_mapLocales_GroupBox.find(pGroupBox);
+	if (iterMapLocales_GroupBox != this->m_mapLocales_GroupBox.end())
+	{
+		iterMapLocales_GroupBox->second = pstrLabel_en_US;
+	}
+	else
+	{
+		this->m_mapLocales_GroupBox.insert(std::make_pair(pGroupBox, pstrLabel_en_US));
 	}
 }
 
