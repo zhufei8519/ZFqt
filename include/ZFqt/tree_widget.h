@@ -53,7 +53,7 @@ namespace ZFqt
 		{}
 		virtual ~TreeWidget()	{}
 
-		virtual void	Clear()	{}
+		virtual void	Clear()	{ this->clear(); }
 
 		uint32_t	GetItemNodeType(QTreeWidgetItem* pItem) const
 		{
