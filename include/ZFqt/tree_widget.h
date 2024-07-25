@@ -50,7 +50,9 @@ namespace ZFqt
 	public:
 		TreeWidget(QWidget* parent = nullptr)
 			:QTreeWidget(parent)
-		{}
+		{
+			this->setContextMenuPolicy(Qt::CustomContextMenu);
+		}
 		virtual ~TreeWidget()	{}
 
 		virtual void	Clear()	{ this->clear(); }
